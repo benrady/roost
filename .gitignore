@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+webapp/data
+supervise
+data
+.jhw-cache
