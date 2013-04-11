@@ -16,8 +16,7 @@ setup(name='Roost',
       author_email='benrady@gmail.com',
       packages=find_packages(),
       install_requires=['XBee>=2.0.0', 'pyserial>=2.6'],
-      url='github.com/benrady/roost',
-      packages=['roost', 'distutils.command'],
+      url='http://github.com/benrady/roost',
       entry_points={
         'console_scripts': [
         'roost = roost.main:main',
