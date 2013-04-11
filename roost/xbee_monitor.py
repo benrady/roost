@@ -14,8 +14,7 @@ Continuously read the serial port and process IO data received from a remote XBe
 # Real: 65.3 / Measured: 66.36
 # Real: 65.6 / Measured: 68.3
 
-from xbee import ZigBee
-import serial, json, time, sys, os, fcntl
+import json, time, sys, os, fcntl
 
 def data_dir():
   return "data"

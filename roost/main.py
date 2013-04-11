@@ -1,7 +1,8 @@
 """
 This module contains Roost's `main` method. `main` is executed as the command line ``roost`` program.
 """
-import sys
+from xbee import ZigBee
+import sys, serial
 
 from xbee_monitor import read_loop
 
@@ -16,3 +17,6 @@ def main():
         break
   ser.close()
   sys.exit(0)
+
+if __name__ == "__main__":
+  main()
