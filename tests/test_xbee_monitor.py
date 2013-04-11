@@ -1,9 +1,7 @@
+from roost import xbee_monitor 
 from nose.tools import * 
 
-import types
-import unittest
-import shutil
-import os
+import types, unittest, shutil, os
 
 # Run with nosetests or
 # tdaemon -t nose --custom-args xbee_monitor.py
@@ -14,15 +12,17 @@ mark2_frame = {'source_addr_long': '\x00\x13\xa2\x00@\x89\xe5D', 'source_addr': 
 def now():
   return 1234567890000
 
+xbee_monitor.now = now # Fake implemention of now
+
 def test_parse_frame():
-  reading = get_record(mark2_frame)
+  reading = xbee_monitor.get_record(mark2_frame)
   eq_(reading['source'], 'sensor_2')
   eq_(reading['humidity'], 30.21394758756598)
   eq_(reading['temp_f'], 70.26392961876833)
   eq_(reading['timestamp'], 1234567890000)
 
 def test_parse_frame_without_humidity():
-  reading = get_record(mark1_frame)
+  reading = xbee_monitor.get_record(mark1_frame)
   eq_(reading['source'], 'sensor_1')
   eq_(reading['temp_f'], 69.44392961876834)
   eq_(reading['timestamp'], 1234567890000)
