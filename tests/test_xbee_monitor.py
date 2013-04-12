@@ -3,9 +3,6 @@ from nose.tools import *
 
 import types, unittest, shutil, os
 
-# Run with nosetests or
-# tdaemon -t nose --custom-args xbee_monitor.py
-
 mark1_frame = {'source_addr_long': '\x00\x13\xa2\x00@\x89\xe5C', 'source_addr': '\x92u', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 599}], 'options': '\x01'}
 mark2_frame = {'source_addr_long': '\x00\x13\xa2\x00@\x89\xe5D', 'source_addr': '\x92u', 'id': 'rx_io_data_long_addr', 'samples': [{'adc-0': 599, 'adc-1': 350}], 'options': '\x01'}
 
