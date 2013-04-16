@@ -1,0 +1,32 @@
+/* Core Colors */
+.bg-offwhite { background: #FFFFFA; }
+.bg-soft-red { background: #CCB4B4; }
+.bg-brick-red { background: #B25654; }
+.bg-blue { background: #73C9FF }
+.bg-kakhi { background: #B2B29D }
+
+a { cursor pointer; }
+a:link { cursor pointer; }
+body { padding-top 60px; }
+table > tfoot, tbody th { border-top 1px solid #DDD }
+
+.temp-chart {
+  width: 100%; 
+  height: 250px; 
+  margin: 8px auto;
+}
+
+.info-banner {
+  line-height: 32px;
+}
+
+.big-number {
+  font-size: 32px;
+}
+
+.subtitle { line-height: 13px; }
+.text-center { text-align: center; }
+
+.spacer60 {
+  margin-top: 60px;
+}
