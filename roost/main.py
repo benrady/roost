@@ -6,7 +6,8 @@ import sys, serial
 
 from xbee_monitor import read_loop
 
-def main(device='/dev/ttyUSB0'):
+def monitor_device
+def monitor_device(device='/dev/ttyUSB0'):
   print 'Starting Roost. Connecting to ' + device
   ser = serial.Serial(device, 9600)
   xbee = ZigBee(ser, escaped=True)
@@ -18,5 +19,8 @@ def main(device='/dev/ttyUSB0'):
   ser.close()
   sys.exit(0)
 
+def main():
+  monitor_device(*sys.argv[1:])
+
 if __name__ == "__main__":
-  main(*sys.argv[1:])
+  main()
