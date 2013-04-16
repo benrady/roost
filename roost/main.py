@@ -6,7 +6,6 @@ import sys, serial
 
 from xbee_monitor import read_loop
 
-def monitor_device
 def monitor_device(device='/dev/ttyUSB0'):
   print 'Starting Roost. Connecting to ' + device
   ser = serial.Serial(device, 9600)
