@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Create data directory
+mkdir -p /var/roost/data
+chown -R www-data:www-data /var/roost

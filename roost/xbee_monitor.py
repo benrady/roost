@@ -16,9 +16,6 @@ Continuously read the serial port and process IO data received from a remote XBe
 
 import json, time, sys, os, fcntl
 
-def data_dir():
-  return "data"
-
 def now():
   return int(time.time() * 1000)
 
@@ -71,8 +68,8 @@ def write_to_pipe(record, path):
     if (fd):
       os.close(fd)
 
-def read_loop(ser, xbee):
+def read_loop(xbee, data_dir):
   response = xbee.wait_read_frame()
   record = get_record(response)
-  write_record(record, data_dir())
-  write_to_pipe(record, data_dir())
+  write_record(record, data_dir)
+  write_to_pipe(record, data_dir)

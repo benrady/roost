@@ -22,7 +22,7 @@ case "$1" in
     /sbin/start-stop-daemon --stop --pidfile $PIDFILE --verbose
     ;;
   *)
-    echo "Usage: /etc/init.d/carbage-serve {start|stop}"
+    echo "Usage: /etc/init.d/roost.sh {start|stop}"
     exit 1
     ;;
 esac

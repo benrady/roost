@@ -6,13 +6,13 @@ import sys, serial
 
 from xbee_monitor import read_loop
 
-def monitor_device(device='/dev/ttyUSB0'):
+def monitor_device(device='/dev/ttyUSB0', data_dir='/var/roost/data'):
   print 'Starting Roost. Connecting to ' + device
   ser = serial.Serial(device, 9600)
   xbee = ZigBee(ser, escaped=True)
   while True:
     try:
-      read_loop(ser, xbee)
+      read_loop(xbee, data_dir)
     except KeyboardInterrupt:
         break
   ser.close()

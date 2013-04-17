@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# Create directories and symlinks
-
-mkdir -p /var/roost/data/temperature/raw
-mkdir -p /var/roost/data/weather/raw
