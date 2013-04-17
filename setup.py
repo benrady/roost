@@ -22,4 +22,8 @@ setup(name='Roost',
         'roost = roost.main:main',
         ]
       },
+      data_files=[
+        ('/etc/roost', ['conf/roost.conf']),
+        ('/etc/init.d', ['bin/roost.sh'])
+      ]
      )
