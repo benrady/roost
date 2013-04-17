@@ -5,4 +5,4 @@ mkdir -p /var/roost/data
 chown -R www-data:www-data /var/roost
 
 # Add the www-data user to the dialout group so it can read the serial device
-sudo usermod -a -G dialout www-data
+usermod -a -G dialout www-data
