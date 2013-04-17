@@ -2,4 +2,4 @@
 
 cd `dirname $0`/..
 
-fpm -s python -t deb roost/setup.py
+fpm -s python -t deb setup.py
