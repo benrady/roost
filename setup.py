@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# Python setup script
+# http://docs.python.org/2/distutils/setupscript.html
+
 from setuptools import setup, find_packages
 
 long_description = """

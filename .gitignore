@@ -1,4 +1,5 @@
 .DS_Store
+COM*
 *.pyc
 *.deb
 *.egg-info

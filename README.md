@@ -22,3 +22,9 @@ Roost is currently under development. Roost is expected to be released as a debi
 ## Development
 
 Roost is primarily test driven. A great way to run tests is with `tdaemon -t nose .`
+
+To run the server in development, first create a fake serial port using socat. 
+
+      $ socat PTY,link=COM8 PTY,link=COM9
+
+Then run `python roost/main.py COM8`, passing your fake serial port in as a parameter.

@@ -2,4 +2,7 @@
 
 cd `dirname $0`/..
 
+# Generates a debian package using fpm
+# https://github.com/jordansissel/fpm/wiki
+
 fpm -d python-setuptools --after-install bin/after_install -s python -t deb setup.py
