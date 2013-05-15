@@ -1,25 +1,21 @@
-"""
-This module contains Roost's `main` method. `main` is executed as the command line ``roost`` program.
-"""
-from xbee import ZigBee
-import sys, serial
+#!/usr/bin/env python
 
-from xbee_monitor import read_loop
+from twisted.web import server, resource, static
+from twisted.internet import reactor
 
-def monitor_device(device='/dev/ttyUSB0', data_dir='/var/roost/data'):
-  print 'Starting Roost. Connecting to ' + device
-  ser = serial.Serial(device, 9600)
-  xbee = ZigBee(ser, escaped=True)
-  while True:
-    try:
-      read_loop(xbee, data_dir)
-    except KeyboardInterrupt:
-        break
-  ser.close()
-  sys.exit(0)
+#from xbee_reader import open_port
 
-def main():
-  monitor_device(*sys.argv[1:])
+class Simple(resource.Resource):
+    isLeaf = True
+    def render_GET(self, request):
+        return "<html>Hello, world!</html>"
+
+def main(device='/dev/ttyUSB0', data_dir='/var/roost/data'):
+  root = static.File('public') # FIXME This should be a parameter
+  root.putChild('hello', Simple())
+  reactor.listenTCP(8080, server.Site(root))
+  #xbee_reader.open_port(device)
+  reactor.run()
 
 if __name__ == "__main__":
   main()
