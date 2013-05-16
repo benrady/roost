@@ -22,7 +22,7 @@ case "$1" in
     echo "Starting server"
     /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE \
       --exec /usr/bin/twistd -- -l /var/log/roost.log --pidfile $PIDFILE \
-      roost -w $ROOST_HOME/web/public -x $xbee_device
+      roost -w $ROOST_HOME/web/public -x $xbee_device -p 80
     ;;
   stop)
     echo "Stopping server"
