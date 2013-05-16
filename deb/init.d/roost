@@ -15,13 +15,14 @@
 ### END INIT INFO
 
 PIDFILE=/var/run/twist.pid
+ROOST_HOME=/usr/local/lib/python2.7/dist-packages/Roost-0.1-py2.7.egg
 
 case "$1" in
   start)
     echo "Starting server"
     /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE \
       --exec /usr/bin/twistd -- --pidfile /var/run/twistd.pid \
-      -y $ROOST_HOME/roost/main.py
+      roost
     ;;
   stop)
     echo "Stopping server"

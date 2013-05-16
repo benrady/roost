@@ -3,7 +3,7 @@
 # Python setup script
 # http://docs.python.org/2/distutils/setupscript.html
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 long_description = """
 Similar to the Nest thermostat, Roost adapts to your habits and figures out an optimal schedule for heat, A/C, and humidity controls.
@@ -28,12 +28,12 @@ setup(name='Roost',
       long_description=long_description,
       author='Ben Rady',
       author_email='benrady@gmail.com',
-      packages=find_packages(),
+      packages=["roost", "web", 'twisted.plugins'],
       install_requires=['txXBee>=0.0.4', 'twisted>=12.0.0'],
       url='http://github.com/benrady/roost',
       package_data={
           'twisted': ['plugins/twist_plugin.py'],
-          'web': ['public/**']
+          'web': ['public/**/**/**']
       },
       data_files=[
         ('/etc/init.d', ['deb/init.d/roost']),
