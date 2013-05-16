@@ -28,7 +28,7 @@ setup(name='Roost',
       long_description=long_description,
       author='Ben Rady',
       author_email='benrady@gmail.com',
-      packages=["roost", "web", 'twisted.plugins'],
+      packages=['roost', 'roost.services', 'web', 'twisted.plugins'],
       install_requires=['txXBee>=0.0.4', 'twisted>=12.0.0'],
       url='http://github.com/benrady/roost',
       package_data={
