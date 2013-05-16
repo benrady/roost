@@ -1,0 +1,392 @@
+
+{
+	"response": {
+		"version": "0.1"
+		,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+		,"features": {
+		"forecast": 1
+		}
+	}
+		,
+	"forecast":{
+		"txt_forecast": {
+		"date":"10:00 PM CDT",
+		"forecastday": [
+		{
+		"period":0,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Tuesday",
+		"fcttext":"Partly cloudy in the morning, then clear. High of 91F. Winds from the SW at 10 to 15 mph.",
+		"fcttext_metric":"Partly cloudy in the morning, then clear. High of 33C. Breezy. Winds from the SW at 15 to 25 km/h.",
+		"pop":"0"
+		}
+		,
+		{
+		"period":1,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Tuesday Night",
+		"fcttext":"Partly cloudy. Low of 68F. Breezy. Winds from the SW at 10 to 20 mph.",
+		"fcttext_metric":"Partly cloudy. Low of 20C. Windy. Winds from the SW at 20 to 30 km/h.",
+		"pop":"10"
+		}
+		,
+		{
+		"period":2,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Wednesday",
+		"fcttext":"Partly cloudy. High of 86F. Winds from the WNW at 10 to 15 mph.",
+		"fcttext_metric":"Partly cloudy. High of 30C. Breezy. Winds from the WNW at 15 to 20 km/h.",
+		"pop":"10"
+		}
+		,
+		{
+		"period":3,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Wednesday Night",
+		"fcttext":"Partly cloudy. Low of 55F. Winds from the NNW at 5 to 10 mph.",
+		"fcttext_metric":"Partly cloudy. Low of 13C. Winds from the NNW at 5 to 15 km/h.",
+		"pop":"10"
+		}
+		,
+		{
+		"period":4,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Thursday",
+		"fcttext":"Partly cloudy in the morning, then clear. High of 84F. Winds from the ESE at 5 to 10 mph.",
+		"fcttext_metric":"Partly cloudy in the morning, then clear. High of 29C. Winds from the ESE at 5 to 15 km/h.",
+		"pop":"10"
+		}
+		,
+		{
+		"period":5,
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"title":"Thursday Night",
+		"fcttext":"Partly cloudy with a chance of a thunderstorm and a chance of rain after midnight. Low of 54F. Winds from the North at 5 to 10 mph shifting to the ESE after midnight. Chance of rain 20%.",
+		"fcttext_metric":"Partly cloudy with a chance of a thunderstorm and a chance of rain after midnight. Low of 12C. Winds from the North at 5 to 15 km/h shifting to the ESE after midnight.",
+		"pop":"20"
+		}
+		,
+		{
+		"period":6,
+		"icon":"chancetstorms",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancetstorms.gif",
+		"title":"Friday",
+		"fcttext":"Partly cloudy with a chance of a thunderstorm and a chance of rain. High of 81F. Winds from the SE at 5 to 10 mph. Chance of rain 30%.",
+		"fcttext_metric":"Partly cloudy with a chance of a thunderstorm and a chance of rain. High of 27C. Breezy. Winds from the SE at 10 to 20 km/h. Chance of rain 30%.",
+		"pop":"30"
+		}
+		,
+		{
+		"period":7,
+		"icon":"chancerain",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancerain.gif",
+		"title":"Friday Night",
+		"fcttext":"Partly cloudy with a chance of a thunderstorm and a chance of rain, then a chance of rain after midnight. Fog overnight. Low of 52F. Breezy. Winds from the East at 10 to 20 mph. Chance of rain 50% with rainfall amounts near 0.2 in. possible.",
+		"fcttext_metric":"Partly cloudy with a chance of a thunderstorm and a chance of rain, then a chance of rain after midnight. Fog overnight. Low of 11C. Breezy. Winds from the East at 20 to 25 km/h. Chance of rain 50% with rainfall amounts near 5.6 mm possible.",
+		"pop":"50"
+		}
+		]
+		},
+		"simpleforecast": {
+		"forecastday": [
+		{"date":{
+	"epoch":"1368586800",
+	"pretty":"10:00 PM CDT on May 14, 2013",
+	"day":14,
+	"month":5,
+	"year":2013,
+	"yday":133,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"1",
+	"monthname":"May",
+	"weekday_short":"Tue",
+	"weekday":"Tuesday",
+	"ampm":"PM",
+	"tz_short":"CDT",
+	"tz_long":"America/Chicago"
+},
+		"period":1,
+		"high": {
+		"fahrenheit":"91",
+		"celsius":"33"
+		},
+		"low": {
+		"fahrenheit":"68",
+		"celsius":"20"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"mostlysunny",
+		"pop":0,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 13,
+		"kph": 21,
+		"dir": "SSW",
+		"degrees": 199
+		},
+		"avewind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "SW",
+		"degrees": 215
+		},
+		"avehumidity": 43,
+		"maxhumidity": 55,
+		"minhumidity": 28
+		}
+		,
+		{"date":{
+	"epoch":"1368673200",
+	"pretty":"10:00 PM CDT on May 15, 2013",
+	"day":15,
+	"month":5,
+	"year":2013,
+	"yday":134,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"1",
+	"monthname":"May",
+	"weekday_short":"Wed",
+	"weekday":"Wednesday",
+	"ampm":"PM",
+	"tz_short":"CDT",
+	"tz_long":"America/Chicago"
+},
+		"period":2,
+		"high": {
+		"fahrenheit":"86",
+		"celsius":"30"
+		},
+		"low": {
+		"fahrenheit":"55",
+		"celsius":"13"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"partlycloudy",
+		"pop":10,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 11,
+		"kph": 18,
+		"dir": "West",
+		"degrees": 270
+		},
+		"avewind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "NW",
+		"degrees": 315
+		},
+		"avehumidity": 42,
+		"maxhumidity": 63,
+		"minhumidity": 28
+		}
+		,
+		{"date":{
+	"epoch":"1368759600",
+	"pretty":"10:00 PM CDT on May 16, 2013",
+	"day":16,
+	"month":5,
+	"year":2013,
+	"yday":135,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"1",
+	"monthname":"May",
+	"weekday_short":"Thu",
+	"weekday":"Thursday",
+	"ampm":"PM",
+	"tz_short":"CDT",
+	"tz_long":"America/Chicago"
+},
+		"period":3,
+		"high": {
+		"fahrenheit":"84",
+		"celsius":"29"
+		},
+		"low": {
+		"fahrenheit":"54",
+		"celsius":"12"
+		},
+		"conditions":"Partly Cloudy",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"skyicon":"mostlysunny",
+		"pop":10,
+		"qpf_allday": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_day": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"qpf_night": {
+		"in": 0.00,
+		"mm": 0.0
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 9,
+		"kph": 14,
+		"dir": "East",
+		"degrees": 82
+		},
+		"avewind": {
+		"mph": 7,
+		"kph": 11,
+		"dir": "East",
+		"degrees": 93
+		},
+		"avehumidity": 46,
+		"maxhumidity": 80,
+		"minhumidity": 28
+		}
+		,
+		{"date":{
+	"epoch":"1368846000",
+	"pretty":"10:00 PM CDT on May 17, 2013",
+	"day":17,
+	"month":5,
+	"year":2013,
+	"yday":136,
+	"hour":22,
+	"min":"00",
+	"sec":0,
+	"isdst":"1",
+	"monthname":"May",
+	"weekday_short":"Fri",
+	"weekday":"Friday",
+	"ampm":"PM",
+	"tz_short":"CDT",
+	"tz_long":"America/Chicago"
+},
+		"period":4,
+		"high": {
+		"fahrenheit":"81",
+		"celsius":"27"
+		},
+		"low": {
+		"fahrenheit":"52",
+		"celsius":"11"
+		},
+		"conditions":"Chance of a Thunderstorm",
+		"icon":"chancetstorms",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/chancetstorms.gif",
+		"skyicon":"partlycloudy",
+		"pop":30,
+		"qpf_allday": {
+		"in": 0.22,
+		"mm": 5.6
+		},
+		"qpf_day": {
+		"in": 0.04,
+		"mm": 1.0
+		},
+		"qpf_night": {
+		"in": 0.22,
+		"mm": 5.6
+		},
+		"snow_allday": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_day": {
+		"in": 0,
+		"cm": 0
+		},
+		"snow_night": {
+		"in": 0,
+		"cm": 0
+		},
+		"maxwind": {
+		"mph": 10,
+		"kph": 16,
+		"dir": "ESE",
+		"degrees": 104
+		},
+		"avewind": {
+		"mph": 7,
+		"kph": 11,
+		"dir": "East",
+		"degrees": 98
+		},
+		"avehumidity": 59,
+		"maxhumidity": 76,
+		"minhumidity": 40
+		}
+		]
+		}
+	}
+}

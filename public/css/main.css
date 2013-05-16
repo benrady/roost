@@ -3,6 +3,11 @@ body {
   padding-bottom: 40px;
 }
 
-.forecast-list li img{
+.forecast-list img{
   display: block;
+}
+
+.text-wrap {
+  float: left;
+  margin-right: 10px;
 }
