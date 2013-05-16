@@ -14,15 +14,15 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-PIDFILE=/var/run/twist.pid
+PIDFILE=/var/run/roost.pid
 ROOST_HOME=/usr/local/lib/python2.7/dist-packages/Roost-0.1-py2.7.egg
 
 case "$1" in
   start)
     echo "Starting server"
     /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE \
-      --exec /usr/bin/twistd -- --pidfile /var/run/twistd.pid \
-      roost
+      --exec /usr/bin/twistd -- --pidfile $PIDFILE \
+      roost -w $ROOST_HOME/web/public
     ;;
   stop)
     echo "Stopping server"
