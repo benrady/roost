@@ -29,16 +29,15 @@ setup(name='Roost',
       author='Ben Rady',
       author_email='benrady@gmail.com',
       packages=find_packages(),
-      install_requires=['txXBee>=0.0.4'],
+      install_requires=['txXBee>=0.0.4', 'twisted>=12.0.0'],
       url='http://github.com/benrady/roost',
       package_data={
           'twisted': ['plugins/twist_plugin.py'],
+          'web': ['public/**']
       },
       data_files=[
-        ('/var/roost/www', ['web/public']),
         ('/etc/init.d', ['deb/init.d/roost']),
         ('/etc/roost', ['deb/roost.conf'])
       ])
-     )
 
 refresh_plugin_cache()
