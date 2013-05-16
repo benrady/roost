@@ -1,8 +1,8 @@
 var appName = 'Roost';
-var weatherData; // This should be a promise!
 
 function homeView() {
   function addForecast(data) {
+    forecast.empty();
     _.each(data.forecast.simpleforecast.forecastday, function(day) {  
       forecast.append($('<div>').addClass('span3').append(
         $('<h3>').text(day.date.weekday),
@@ -16,14 +16,21 @@ function homeView() {
           $('<div>').text(day.avewind.mph + "mph " + day.avewind.dir))));
     });
   }
-  $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?', addForecast);
-  //$.getJSON('/data/forecast.json', addForecast);
+
+  function fetchForecast() {
+    $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?', addForecast);
+    //$.getJSON('/data/forecast.json', addForecast);
+  }
 
   var forecast = $('<div>').addClass('forecast-list');
+
+  var interval = setInterval(fetchForecast, 1000 * 60 * 60);
+  fetchForecast();
+
   var view = $('<div>').
     addClass('row-fluid').
     append(forecast);
-
+  view.bind('Roost.viewClose', function() { clearInterval(interval); })
   return view;
 }
 
