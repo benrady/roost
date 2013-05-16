@@ -2,8 +2,6 @@
 
 # init.d script for roost service on debian
 
-# FIXME Add these tags http://wiki.debian.org/LSBInitScripts
-
 ### BEGIN INIT INFO
 # Provides:          roost
 # Required-Start:    $remote_fs $syslog
@@ -15,14 +13,16 @@
 ### END INIT INFO
 
 PIDFILE=/var/run/roost.pid
+#FIXME replace with dirname `python -c 'import roost; print roost.__file__'`
 ROOST_HOME=/usr/local/lib/python2.7/dist-packages/Roost-0.1-py2.7.egg
+source /etc/roost/roost.conf
 
 case "$1" in
   start)
     echo "Starting server"
     /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE \
-      --exec /usr/bin/twistd -- --pidfile $PIDFILE \
-      roost -w $ROOST_HOME/web/public
+      --exec /usr/bin/twistd -- -l /var/log/roost.log --pidfile $PIDFILE \
+      roost -w $ROOST_HOME/web/public -x $xbee_device
     ;;
   stop)
     echo "Stopping server"
