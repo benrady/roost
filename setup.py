@@ -13,7 +13,7 @@ Unlike the Nest, Roost is built around open standards and easy data access. It p
 
 setup(name='Roost',
       version='0.1',
-      description='Open-Source Adaptive Thermostat',
+      description='Open-Source Adaptive Thermostat and Home Automation',
       long_description=long_description,
       author='Ben Rady',
       author_email='benrady@gmail.com',
@@ -26,6 +26,7 @@ setup(name='Roost',
         ]
       },
       data_files=[
+        ('/var/roost/www', ['web/public']),
         ('/etc/roost', ['conf/roost.conf']),
         ('/etc/init.d', ['bin/roost.sh'])
       ]

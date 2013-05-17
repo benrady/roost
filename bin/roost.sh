@@ -2,9 +2,9 @@
 
 # init.d script for roost service on debian
 
-source /etc/roost/roost.conf
+# FIXME Add these tags http://wiki.debian.org/LSBInitScripts
+
 DAEMON=/usr/bin/roost
-ARGS="$xbee_device"
 PIDFILE=/var/roost/roost.pid
 USER=www-data
 
