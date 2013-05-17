@@ -27,7 +27,6 @@ setup(name='Roost',
       },
       data_files=[
         ('/var/roost/www', ['web/public']),
-        ('/etc/roost', ['conf/roost.conf']),
-        ('/etc/init.d', ['bin/roost.sh'])
+        ('/etc/init.d', ['bin/roost'])
       ]
      )
