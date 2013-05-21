@@ -1,9 +1,29 @@
 var appName = 'Roost';
 
 function homeView() {
-  function addForecast(data) {
+  function addWeatherData(forecastReq, conditionReq) {  
+    var forecast = forecastReq[0].forecast.simpleforecast.forecastday;
+    addCurrentConditions(forecast[0], conditionReq[0]);
+    addForecast(forecast.slice(1));
+  }
+
+  function addCurrentConditions(day, conditionData) {
+    conditions.empty();
+    conditions.append($('<div>').addClass('span12').append(
+      $('<h3>').text(day.date.weekday),
+      $('<img>').
+        attr('src', day.icon_url).
+        attr('title', day.conditions).
+        addClass('img-polaroid text-wrap'),
+      $('<div>').append(
+        $('<div>').text(day.high.fahrenheit + '° / ' + day.low.fahrenheit + '°'),
+        $('<div>').text(day.avehumidity + '% H'),
+        $('<div>').text(day.avewind.mph + "mph " + day.avewind.dir))));
+  }
+
+  function addForecast(forecastDays) {
     forecast.empty();
-    _.each(data.forecast.simpleforecast.forecastday, function(day) {  
+    _.each(forecastDays, function(day) {  
       forecast.append($('<div>').addClass('span3 small-text').append(
         $('<h4>').text(day.date.weekday),
         $('<img>').
@@ -17,14 +37,27 @@ function homeView() {
     });
   }
 
-  function fetchForecast() {
+  function currentConditionData() {
     if (window.location.hostname === 'localhost') {
-      $.getJSON('/data/forecast.json', addForecast);
+      return $.getJSON('/data/conditions.json');
     } else {
-      $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?', addForecast);
+      return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/conditions/q/60630.json?callback=?');
     }
   }
 
+  function forecastData() {
+    if (window.location.hostname === 'localhost') {
+      return $.getJSON('/data/forecast.json');
+    } else {
+      return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?');
+    }
+  }
+
+  function fetchForecast() {
+    $.when(forecastData(), currentConditionData()).then(addWeatherData) 
+  }
+
+  var conditions = $('<div>').addClass('current-conditions');
   var forecast = $('<div>').addClass('forecast-list');
 
   var interval = setInterval(fetchForecast, 1000 * 60 * 60);
@@ -32,13 +65,10 @@ function homeView() {
 
   var view = $('<div>').
     addClass('row-fluid').
-    append(forecast);
+    append(conditions, forecast);
   view.bind('Roost.viewClose', function() { clearInterval(interval); })
   return view;
 }
 
-var routes = {
-  home: homeView,
-  history: function() { return bannerTemplate('This is the contact view')},
-};
-
+routes.home = homeView;
+routes.history = function() { return bannerTemplate('This is the contact view')};

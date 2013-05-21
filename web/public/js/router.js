@@ -15,6 +15,8 @@ function currentView() {
   return window.location.hash.split('#')[1] || 'home';
 }
 
+var routes = {};
+
 (function() {
   $(document).ready(function() {
     window.onhashchange = function() {
