@@ -1,5 +1,23 @@
 var appName = 'Roost';
 
+function currentConditionData() {
+  // FIXME Cache this in localStorage?
+  if (window.location.hostname === 'localhost') {
+    return $.getJSON('/data/conditions.json');
+  } else {
+    return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/conditions/q/60630.json?callback=?');
+  }
+}
+
+function forecastData() {
+  // FIXME Cache this in localStorage?
+  if (window.location.hostname === 'localhost') {
+    return $.getJSON('/data/forecast.json');
+  } else {
+    return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?');
+  }
+}
+
 function homeView() {
   function addWeatherData(forecastReq, conditionReq) {  
     var forecast = forecastReq[0].forecast.simpleforecast.forecastday;
@@ -24,7 +42,7 @@ function homeView() {
   function addForecast(forecastDays) {
     forecast.empty();
     _.each(forecastDays, function(day) {  
-      forecast.append($('<div>').addClass('span3 small-text').append(
+      forecast.append($('<div>').addClass('span4 small-text').append(
         $('<h4>').text(day.date.weekday),
         $('<img>').
           attr('src', day.icon_url).
@@ -35,22 +53,6 @@ function homeView() {
           $('<div>').text(day.avehumidity + '% H'),
           $('<div>').text(day.avewind.mph + "mph " + day.avewind.dir))));
     });
-  }
-
-  function currentConditionData() {
-    if (window.location.hostname === 'localhost') {
-      return $.getJSON('/data/conditions.json');
-    } else {
-      return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/conditions/q/60630.json?callback=?');
-    }
-  }
-
-  function forecastData() {
-    if (window.location.hostname === 'localhost') {
-      return $.getJSON('/data/forecast.json');
-    } else {
-      return $.getJSON('http://api.wunderground.com/api/' + settings.wuKey + '/forecast/q/60630.json?callback=?');
-    }
   }
 
   function fetchForecast() {
@@ -70,5 +72,7 @@ function homeView() {
   return view;
 }
 
-routes.home = homeView;
-routes.history = function() { return bannerTemplate('This is the contact view')};
+var routes = {
+  home: homeView,
+  history: function() { return bannerTemplate('This is the contact view')}
+}

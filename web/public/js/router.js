@@ -15,9 +15,7 @@ function currentView() {
   return window.location.hash.split('#')[1] || 'home';
 }
 
-var routes = {};
-
-(function() {
+function routerOnReady() {
   $(document).ready(function() {
     window.onhashchange = function() {
       showView(currentView());
@@ -26,4 +24,4 @@ var routes = {};
     showView(currentView());
     $('.appName').text(appName);
   });
-})();
+}
