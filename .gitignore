@@ -5,3 +5,4 @@ COM*
 *.egg-info
 build
 dist
+web/public/data

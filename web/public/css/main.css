@@ -3,10 +3,9 @@ body {
   padding-bottom: 40px;
 }
 
-.forecast-list img{
-  display: block;
-}
+#template { display: none; }
 
+.small-text { font-size: 12px; }
 .text-wrap {
   float: left;
   margin-right: 10px;
