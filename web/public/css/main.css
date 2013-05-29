@@ -6,7 +6,15 @@ body {
 #template { display: none; }
 
 .small-text { font-size: 12px; }
+.big-text { 
+  font-size: 44px; 
+  line-height: 44px;
+}
 .text-wrap {
   float: left;
   margin-right: 10px;
+}
+
+.fixed-height {
+  height: 50px;
 }

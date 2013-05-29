@@ -21,7 +21,7 @@ function forecastData() {
 function homeView() {
   function addWeatherData(forecastReq, conditionReq) {  
     var forecast = forecastReq[0].forecast.simpleforecast.forecastday;
-    addCurrentConditions(forecast[0], conditionReq[0]);
+    addCurrentConditions(forecast[0], conditionReq[0].current_observation);
     addForecast(forecast.slice(1));
   }
 
@@ -33,10 +33,13 @@ function homeView() {
         attr('src', day.icon_url).
         attr('title', day.conditions).
         addClass('img-polaroid text-wrap'),
+      $('<div>').addClass('text-wrap fixed-height').append(
+        $('<div>').addClass('big-text').text(Math.round(+conditionData.temp_f) + '°'),
+        $('<div>').addClass('small-text').text(conditionData.weather)),
       $('<div>').append(
-        $('<div>').text(day.high.fahrenheit + '° / ' + day.low.fahrenheit + '°'),
-        $('<div>').text(day.avehumidity + '% H'),
-        $('<div>').text(day.avewind.mph + "mph " + day.avewind.dir))));
+        $('<div>').text('High: ' + day.high.fahrenheit + '° /  Low: ' + day.low.fahrenheit + '°'),
+        $('<div>').text('Humidity: ' + day.avehumidity + "%"),
+        $('<div>').text("Wind: "+ day.avewind.mph + "mph " + day.avewind.dir))));
   }
 
   function addForecast(forecastDays) {

@@ -75,13 +75,23 @@ describe("Roost", function() {
       "maxhumidity": 55,
       "minhumidity": 28
       };
-      spyOn(window, 'currentConditionData').andReturn([{}]);
+      spyOn(window, 'currentConditionData').andReturn([{
+        current_observation:{
+          temp_f: '70.2',
+          weather: 'Overcast'
+        }
+      }]);
       spyOn(window, 'forecastData').andReturn([{forecast: {simpleforecast: {forecastday: [forecast]}}}]);
       view = homeView();
     });
     
     it("should show the current conditions for today", function() {
-      expect(view.find('h3')).toHaveText('Tuesday');
+      expect(view.find('.current-conditions h3')).toHaveText('Tuesday');
+      expect(view.find('.current-conditions img')).toHaveAttr('src', 'http://icons-ak.wxug.com/i/c/k/partlycloudy.gif');
+    });
+
+    it('should show the forecast for the next three days', function() {
+      expect(view.find('.current-conditions h3')).toHaveText('Tuesday');
     });
   });
 });
