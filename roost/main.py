@@ -3,8 +3,7 @@
 from twisted.web import server, resource, static
 from twisted.internet import reactor
 
-#from xbee_reader import open_port
-
+import xbee_reader
 import sys, getopt
 
 class Simple(resource.Resource):
@@ -17,7 +16,7 @@ def start_reactor(opts):
   device = opts.get('--device', '/dev/ttyUSB0')
   print "Starting Roost"
   root = static.File(web_dir) 
-  root.putChild('hello', Simple())
+  root.putChild('events', Simple())
   reactor.listenTCP(8080, server.Site(root))
   #xbee_reader.open_port(device)
   reactor.run()

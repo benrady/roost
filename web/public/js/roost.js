@@ -25,10 +25,14 @@ function homeView() {
     addForecast(forecast.slice(1));
   }
 
+  function statusRow(label, value) {
+    return $('<div>').text(label + ": " + value);
+  }
+
   function addCurrentConditions(day, conditionData) {
     conditions.empty();
     conditions.append($('<div>').addClass('span12').append(
-      $('<h3>').text(day.date.weekday),
+      $('<h1>').text(day.date.weekday),
       $('<img>').
         attr('src', day.icon_url).
         attr('title', day.conditions).
@@ -37,9 +41,9 @@ function homeView() {
         $('<div>').addClass('big-text').text(Math.round(+conditionData.temp_f) + '°'),
         $('<div>').addClass('small-text').text(conditionData.weather)),
       $('<div>').append(
-        $('<div>').text('High: ' + day.high.fahrenheit + '° /  Low: ' + day.low.fahrenheit + '°'),
-        $('<div>').text('Humidity: ' + day.avehumidity + "%"),
-        $('<div>').text("Wind: "+ day.avewind.mph + "mph " + day.avewind.dir))));
+        statusRow('High',day.high.fahrenheit + '° /  Low: ' + day.low.fahrenheit + '°'),
+        statusRow('Humidity', day.avehumidity + "%"),
+        statusRow('Wind', day.avewind.mph + "mph " + day.avewind.dir))));
   }
 
   function addForecast(forecastDays) {
@@ -62,14 +66,13 @@ function homeView() {
     $.when(forecastData(), currentConditionData()).then(addWeatherData) 
   }
 
-  var conditions = $('<div>').addClass('current-conditions');
-  var forecast = $('<div>').addClass('forecast-list');
+  var conditions = $('<div>').addClass('current-conditions row-fluid bottom-margin');
+  var forecast = $('<div>').addClass('forecast-list row-fluid');
 
   var interval = setInterval(fetchForecast, 1000 * 60 * 60);
   fetchForecast();
 
   var view = $('<div>').
-    addClass('row-fluid').
     append(conditions, forecast);
   view.bind('Roost.viewClose', function() { clearInterval(interval); })
   return view;

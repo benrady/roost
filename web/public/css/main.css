@@ -18,3 +18,7 @@ body {
 .fixed-height {
   height: 50px;
 }
+
+.bottom-margin {
+  margin-bottom: 20px;
+}
