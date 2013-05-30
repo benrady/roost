@@ -18,7 +18,7 @@ def start_reactor(opts):
   root = static.File(web_dir) 
   root.putChild('events', Simple())
   reactor.listenTCP(8080, server.Site(root))
-  #xbee_reader.open_port(device)
+  xbee_reader.open_port(device)
   reactor.run()
 
 def main(argv=None):
