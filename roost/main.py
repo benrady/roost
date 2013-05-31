@@ -3,8 +3,8 @@
 from twisted.web import server, resource, static
 from twisted.internet import reactor
 
-import xbee_reader
-import sys, getopt
+import xbee_reader, events
+import os, sys, getopt
 
 class Simple(resource.Resource):
     isLeaf = True
@@ -14,11 +14,15 @@ class Simple(resource.Resource):
 def start_reactor(opts):
   web_dir = opts.get('--web-dir', '/var/roost/www')
   device = opts.get('--device', '/dev/ttyUSB0')
-  print "Starting Roost"
   root = static.File(web_dir) 
   root.putChild('events', Simple())
   reactor.listenTCP(8080, server.Site(root))
-  xbee_reader.open_port(device)
+  if os.path.exists(device):
+    xbee_reader.open_port(device)
+  else:
+    print >>sys.stderr, "Could not find device " + device
+  print "Starting Roost"
+  events.fire('roost.startup')
   reactor.run()
 
 def main(argv=None):

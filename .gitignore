@@ -8,3 +8,5 @@ dist
 web/public/data
 web/public/js/settings.js
 .jhw-cache
+_trial_temp
+tags
