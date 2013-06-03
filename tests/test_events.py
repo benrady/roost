@@ -22,5 +22,3 @@ class TestEventsListeners(unittest.TestCase):
     d = events.fire('test', 'hello world')
     d.addCallback(lambda i: mock.assert_called_with('test', 'hello world'))
     return d
-    # Attaching a deferred here doesn't seem to work
-

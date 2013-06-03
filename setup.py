@@ -20,11 +20,6 @@ setup(name='Roost',
       packages=find_packages(),
       install_requires=['txXBee>=0.0.4'],
       url='http://github.com/benrady/roost',
-      entry_points={
-        'console_scripts': [
-        'roost = roost.main:main',
-        ]
-      },
       data_files=[
         ('/var/roost/www', ['web/public']),
         ('/etc/init.d', ['bin/roost'])

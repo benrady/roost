@@ -1,4 +1,5 @@
-from roost import xbee_reader, events
+from roost.services import xbee
+from roost import events
 from nose.tools import * 
 from mock import Mock
 
@@ -7,7 +8,7 @@ import types, unittest, shutil, os
 class TestXBeeReader(unittest.TestCase):
 
   def setUp(self):
-    self.reader = xbee_reader.XBeeReader()
+    self.reader = xbee.XBeeReader()
 
   def test_handle_packet(self):
     events.fire = Mock()

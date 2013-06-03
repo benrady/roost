@@ -10,3 +10,4 @@ web/public/js/settings.js
 .jhw-cache
 _trial_temp
 tags
+twistd.log
