@@ -8,6 +8,9 @@ from roost import events, services
 from roost.services import xbee, env_sensors, web
 
 log.msg("Starting Roost")
-opts = { "--web-dir": 'web/public' }
+opts = { 
+  "web-dir": 'web/public',
+  'device': '/dev/tty.usbserial-A901JXEE'
+}
 application = service.Application('roost')
 services.start(application, opts)
