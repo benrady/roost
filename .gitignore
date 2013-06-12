@@ -11,3 +11,4 @@ web/public/js/settings.js
 _trial_temp
 tags
 twistd.log
+twistd.pid
