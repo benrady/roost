@@ -19,6 +19,10 @@ The current hardware setup emphasizes ease of setup and flexibility over efficie
 
 Roost is currently under development. Roost is expected to be released as a debian package (for easy setup on the Raspberry Pi). No stable releases are currently available. Feedback and pull requests are encouraged.
 
+## Installation
+
+sudo apt-get install python-setuptools python-twisted
+
 ## Development
 
 Roost is primarily test driven. Run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
