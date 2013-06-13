@@ -62,18 +62,29 @@ function homeView() {
     });
   }
 
-  function fetchForecast() {
+  function updateZones(zoneData) {  
+    zoneList.empty();
+    _.each(zoneData.zones, function(data, zone) {  
+      zoneList.append($('<div>').addClass('text-wrap fixed-height').append(
+        $('<div>').addClass('big-text').text(Math.round(data.tempF) + '°'),
+        $('<div>').addClass('small-text').text(data.name)));
+    });
+  }
+
+  function refreshData() {
     $.when(forecastData(), currentConditionData()).then(addWeatherData) 
+    $.getJSON('/services/env_sensors/properties', updateZones);
   }
 
   var conditions = $('<div>').addClass('current-conditions row-fluid bottom-margin');
   var forecast = $('<div>').addClass('forecast-list row-fluid');
+  var zoneList = $('<div>').addClass('zone-list row-fluid');
 
-  var interval = setInterval(fetchForecast, 1000 * 60 * 60);
-  fetchForecast();
+  var interval = setInterval(refreshData, 1000 * 60 * 60);
+  refreshData();
 
   var view = $('<div>').
-    append(conditions, forecast);
+    append(conditions, forecast, zoneList);
   view.bind('Roost.viewClose', function() { clearInterval(interval); })
   return view;
 }

@@ -15,7 +15,8 @@ class Options(usage.Options):
     longdesc = "Start the roost service"
     optParameters = [
         ['xbee_device', 'x', '/dev/ttyUSB0'],
-        ['web-dir', 'w', '/var/roost/www'],
+        ['port', 'p', '8080'],
+        ['web-dir', 'w', 'web/public'],
     ]
 
 class MyServiceMaker(object):

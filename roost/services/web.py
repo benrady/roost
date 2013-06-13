@@ -17,6 +17,7 @@ class Web(service.Service):
   def __init__(self, opts):
     self.setName('web')
     self.web_dir = opts.get('web-dir')
+    self.port = int(opts.get('port'))
 
   def properties(self):
     return {}
@@ -25,6 +26,6 @@ class Web(service.Service):
     service.Service.startService(self)
     root = static.File(self.web_dir) 
     root.putChild('services', ServiceResource())
-    self.server = internet.TCPServer(8080, server.Site(root)).setServiceParent(self.parent)
+    self.server = internet.TCPServer(self.port, server.Site(root)).setServiceParent(self.parent)
 
 roost.add_service(Web)

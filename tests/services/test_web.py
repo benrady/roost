@@ -10,7 +10,7 @@ from twisted.web.test.test_web import DummyRequest
 
 class TestWeb(unittest.TestCase):
   def test_name(self):
-    service = web.Web({})
+    service = web.Web({'port': '80', 'web-dir': 'web/public'})
     eq_(service.name, "web")
 
 def _render(resource, request):
