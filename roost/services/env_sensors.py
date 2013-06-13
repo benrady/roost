@@ -1,9 +1,13 @@
 from twisted.application import service
+import time
 import roost
 
+def now_millis():
+  return int(round(time.time() * 1000))
+
 class Source:
-  def __init__(self, name, calibration=0.0):
-    self.name = name
+  def __init__(self, zone, calibration=0.0):
+    self.zone = zone
     self.calibration = calibration
 
   def read_sample(self, samples, pin):
@@ -13,10 +17,10 @@ class Source:
       return 1200 * (samples[0][pin] / 1023.0)
 
   def parse_samples(self, samples):
-    reading = {'zone': self.name}
+    reading = {'lastUpdate': now_millis()}
     pin0 = self.read_sample(samples, 'adc-0')
     if pin0:
-      reading.update({'temp_f': (pin0 / 10) + self.calibration})
+      reading.update({'tempF': (pin0 / 10) + self.calibration})
     pin1 = self.read_sample(samples, 'adc-1')
     if pin1: 
       reading.update({'humidity': (pin1 - 0.22) * 0.073632 })
@@ -25,6 +29,7 @@ class Source:
 class EnvSensors(service.Service):
   def __init__(self, opts={}):
     self.setName('env_sensors')
+    # FIXME Need a way to assign sources to zones
     self.sources = { 
         '0:13:a2:0:40:89:e5:43': Source("zone1", -0.82),
         '0:13:a2:0:40:89:e5:44': Source("zone2")
@@ -35,8 +40,9 @@ class EnvSensors(service.Service):
     }
 
   def on_data(self, event, data):
-    reading = self.sources[data['source']].parse_samples(data['samples'])
-    self.zones[reading['zone']].update(reading)
+    source = self.sources[data['source']]
+    reading = source.parse_samples(data['samples'])
+    self.zones[source.zone].update(reading)
 
   def properties(self):
     return {"zones": self.zones}

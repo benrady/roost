@@ -8,7 +8,7 @@ dist
 web/public/data
 web/public/js/settings.js
 .jhw-cache
-_trial_temp
+_trial_temp*
 tags
 twistd.log
 twistd.pid

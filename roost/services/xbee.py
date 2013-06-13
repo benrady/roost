@@ -44,6 +44,6 @@ class XBeeService(service.Service):
     return {'sources': list(self.get_sources())}
 
   def get_sources(self):
-    return self.reader.sources
+    return list(self.reader.sources)
 
 roost.add_service(XBeeService)
