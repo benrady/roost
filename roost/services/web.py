@@ -16,7 +16,7 @@ class ServiceResource(resource.Resource):
 class Web(service.Service):
   def __init__(self, opts):
     self.setName('web')
-    self.web_dir = opts.get('web-dir', '/var/roost/www')
+    self.web_dir = opts.get('web-dir')
 
   def properties(self):
     return {}

@@ -14,20 +14,18 @@
 # Description:       Enable service provided by daemon.
 ### END INIT INFO
 
-DAEMON=/usr/bin/twistd
-PIDFILE=/var/roost/roost.pid
-ROOST_HOME=/usr/local/roost
+PIDFILE=/var/run/twist.pid
 
 case "$1" in
   start)
     echo "Starting server"
-    /sbin/start-stop-daemon --start --quiet --pidfile /var/run/twistd.pid \
+    /sbin/start-stop-daemon --start --quiet --pidfile $PIDFILE \
       --exec /usr/bin/twistd -- --pidfile /var/run/twistd.pid \
       -y $ROOST_HOME/roost/main.py
     ;;
   stop)
     echo "Stopping server"
-    /sbin/start-stop-daemon --stop --quiet --pidfile /var/run/twistd.pid 
+    /sbin/start-stop-daemon --stop --quiet --pidfile $PIDFILE 
     ;;
   *)
     echo "Usage: /etc/init.d/roost.sh {start|stop}"

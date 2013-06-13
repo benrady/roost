@@ -21,4 +21,6 @@ Roost is currently under development. Roost is expected to be released as a debi
 
 ## Development
 
-Roost is primarily test driven. A great way to run tests is with `tdaemon -t nose .`
+Roost is primarily test driven. Run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
+
+You can run a development server like so: `twistd -n roost --web-dir=web/public`

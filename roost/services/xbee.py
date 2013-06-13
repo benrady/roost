@@ -30,7 +30,7 @@ class XBeeReader(txXBee):
 class XBeeService(service.Service):
   def __init__(self, opts={}):
     self.setName('xbee')
-    self.device = opts.get('device', '/dev/ttyUSB0')
+    self.device = opts.get('xbee_device')
     self.reader = XBeeReader(escaped=True)
 
   def startService(self):
