@@ -11,7 +11,10 @@ Similar to the Nest thermostat, Roost adapts to your habits and figures out an o
 Unlike the Nest, Roost is built around open standards and easy data access. It provides an API for data access and control and can be assembled from open-source software and hardware.
 """
 
-import sys
+import sys, os
+
+def find_web_files():
+  [root[4:] + "/" + name for root, dirs, files in os.walk('web/public') for name in files]
 
 setup(name='Roost',
       version='0.1',
@@ -24,7 +27,7 @@ setup(name='Roost',
       url='http://github.com/benrady/roost',
       package_data={
           'twisted': ['plugins/twist_plugin.py'],
-          'web': ['public/**/**/**']
+          'web': find_web_files()
       },
       data_files=[
         ('/etc/init.d', ['deb/init.d/roost']),
