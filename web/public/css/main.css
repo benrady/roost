@@ -10,15 +10,15 @@ body {
   font-size: 44px; 
   line-height: 44px;
 }
+
 .text-wrap {
   float: left;
   margin-right: 10px;
 }
 
-.fixed-height {
-  height: 50px;
-}
+.fixed-height { height: 50px; }
 
-.bottom-margin {
-  margin-bottom: 20px;
-}
+.bottom-margin { margin-bottom: 20px; }
+.top-margin { margin-top: 20px; }
+
+.text-center { text-align: center;}

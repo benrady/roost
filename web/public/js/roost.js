@@ -65,9 +65,10 @@ function homeView() {
   function updateZones(zoneData) {  
     zoneList.empty();
     _.each(zoneData.zones, function(data, zone) {  
-      zoneList.append($('<div>').addClass('text-wrap fixed-height').append(
-        $('<div>').addClass('big-text').text(Math.round(data.tempF) + '°'),
-        $('<div>').addClass('small-text').text(data.name)));
+      zoneList.append($('<div>').addClass('span6 text-center well').append(
+        $('<h2>').text(data.name),
+        $('<span>').addClass('big-text').text(Math.round(data.tempF) + '°')
+      ));
     });
   }
 
@@ -78,7 +79,7 @@ function homeView() {
 
   var conditions = $('<div>').addClass('current-conditions row-fluid bottom-margin');
   var forecast = $('<div>').addClass('forecast-list row-fluid');
-  var zoneList = $('<div>').addClass('zone-list row-fluid');
+  var zoneList = $('<div>').addClass('zone-list row-fluid top-margin');
 
   var interval = setInterval(refreshData, 1000 * 60 * 60);
   refreshData();
