@@ -9,5 +9,5 @@ class TestMain(unittest.TestCase):
     serviceClass = services.env_sensors.EnvSensors
     app = Mock()
     services._services = [serviceClass]
-    services.start(app, {})
+    services.start(app, {'data-dir': 'test-data'})
     assert isinstance(services.find('env_sensors'), serviceClass)

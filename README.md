@@ -21,10 +21,16 @@ Roost is currently under development. Roost is expected to be released as a debi
 
 ## Installation
 
-sudo apt-get install python-setuptools python-twisted
+####Install dependencies
+
+`sudo apt-get install python-setuptools python-twisted`
+
+####Clone this repository; Run installation
+
+`sudo python setup.py install`
 
 ## Development
 
 Roost is primarily test driven. Run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
 
-You can run a development server like so: `twistd -n roost --web-dir=web/public`
+You can run a development server like so: `twistd -n roost`

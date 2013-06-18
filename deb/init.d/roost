@@ -26,6 +26,7 @@ case "$1" in
             -x $xbee_device \
             -p 80 \
             -t /etc/roost/users.txt
+            -d $data_dir
     ;;
   stop)
     echo "Stopping server"

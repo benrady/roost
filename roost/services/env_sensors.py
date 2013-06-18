@@ -1,6 +1,7 @@
 from twisted.application import service
 import time
 import roost
+from roost import storage
 
 def now_millis():
   return int(round(time.time() * 1000))
@@ -13,6 +14,7 @@ class EnvSensors(service.Service):
         "zone1": {"name": "Zone 1"},
         "zone2": {"name": "Zone 2"}
     }
+    self.storage = storage.Storage(opts.get('data-dir'), self.name)
 
   def _read_sample(self, samples, pin):
     # XBee analog pins

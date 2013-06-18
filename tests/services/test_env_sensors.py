@@ -6,7 +6,7 @@ from twisted.trial import unittest
 
 class TestEnvSensors(unittest.TestCase):
   def setUp(self):
-    self.service = env_sensors.EnvSensors()
+    self.service = env_sensors.EnvSensors({'data-dir': 'temp-data'})
     self.data = {'source': '0:13:a2:0:40:89:e5:43', 'samples':[{'adc-0': 580, 'adc-1': 570}]}
 
   def test_zones(self):
