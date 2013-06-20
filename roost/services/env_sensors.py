@@ -9,10 +9,9 @@ class EnvSensors(service.Service):
   def __init__(self, opts={}):
     self.setName('env_sensors')
     self.calibration = 0.0
-    # FIXME Need a way to assign sources to zones
     self.zones = {
-        "zone1": {"name": "Zone 1", "source": '0:13:a2:0:40:89:e5:43'},
-        "zone2": {"name": "Zone 2", "source": '0:13:a2:0:40:89:e5:44'}
+        "zone1": {"name": "Zone 1"},
+        "zone2": {"name": "Zone 2"}
     }
 
   def _read_sample(self, samples, pin):
@@ -31,15 +30,14 @@ class EnvSensors(service.Service):
       reading.update({'humidity': (pin1 - 0.22) * 0.073632 })
     return reading
 
-  def _find_zone(self, source):
+  def _update_zone(self, source, reading):
     for k, zone in self.zones.items():
-      if zone['source'] == source: 
-        return zone
+      if zone.get('source', None) == source: 
+        zone.update(reading)
 
   def on_data(self, event, data):
-    zone = self._find_zone(data['source'])
     reading = self._parse_samples(data['samples'])
-    zone.update(reading)
+    self._update_zone(data['source'], reading)
 
   def properties(self):
     return {"zones": self.zones}
@@ -47,5 +45,9 @@ class EnvSensors(service.Service):
   def startService(self):
     service.Service.startService(self)
     roost.listen_to('xbee.data', self.on_data)
+
+  # FIXME Set this as a property
+  def assign_device(self, zone, source):
+    self.zones[zone]['source'] = source
 
 roost.add_service(EnvSensors)
