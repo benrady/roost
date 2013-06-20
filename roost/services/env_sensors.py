@@ -31,7 +31,7 @@ class EnvSensors(service.Service):
     self.setName('env_sensors')
     # FIXME Need a way to assign sources to zones
     self.sources = { 
-        '0:13:a2:0:40:89:e5:43': Source("zone1", -3.5),
+        '0:13:a2:0:40:89:e5:43': Source("zone1", -2.5),
         '0:13:a2:0:40:89:e5:44': Source("zone2")
     }
     self.zones = {

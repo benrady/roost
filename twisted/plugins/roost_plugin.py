@@ -14,9 +14,10 @@ class Options(usage.Options):
     synopsis = "[options]"
     longdesc = "Start the roost service"
     optParameters = [
-        ['xbee_device', 'x', '/dev/ttyUSB0'],
-        ['port', 'p', '8080'],
-        ['web-dir', 'w', 'web/public'],
+        ['xbee_device', 'x', 'testdata/devices', 'Path to the XBee controller radio or pickled packet files'],
+        ['port', 'p', '8080', 'Web application port'],
+        ['telnet-users', 't', 'deb/users.txt'],
+        ['web-dir', 'w', 'web/public', 'Web application files'],
     ]
 
 class MyServiceMaker(object):

@@ -90,7 +90,19 @@ function homeView() {
   return view;
 }
 
+function deviceView() {
+  var view = $('<div>');
+  // FIXME How do we fake out this data in development?
+  $.getJSON('/services/xbee/properties', function(props) {  
+    _.each(props.sources, function(source) {  
+      view.append($('<div>').addClass('row-fluid').append($('<span>').addClass('span3').text(source)));
+    });
+  })
+  return view;
+}
+
 var routes = {
   home: homeView,
-  history: function() { return bannerTemplate('This is the contact view')}
+  history: function() { return bannerTemplate('This is the contact view')},
+  devices: deviceView
 }

@@ -22,6 +22,5 @@ function routerOnReady() {
       return true;
     };
     showView(currentView());
-    $('.appName').text(appName);
   });
 }

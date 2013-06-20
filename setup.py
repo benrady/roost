@@ -39,5 +39,6 @@ setup(name='Roost',
       },
       data_files=[
         ('/etc/init.d', ['deb/init.d/roost']),
-        ('/etc/roost', ['deb/roost.conf'])
+        ('/etc/roost', ['deb/roost.conf']),
+        ('/etc/roost', ['deb/users.txt'])
       ])

@@ -44,3 +44,11 @@ class TestXBeeService(unittest.TestCase):
 
   def test_properties(self):
     eq_(self.service.properties(), {'sources': []})
+
+  def test_fake_devices(self):
+    self.service._publish_test_data('../testdata/devices')
+    eq_(self.service.get_sources(), ["0:13:a2:0:40:89:e5:44", "0:13:a2:0:40:89:e5:43"])
+
+  def test_fake_devices_loop(self):
+    for x in range(11): self.service._publish_test_data('../testdata/devices')
+    eq_(self.service.get_sources(), ["0:13:a2:0:40:89:e5:44", "0:13:a2:0:40:89:e5:43"])

@@ -20,6 +20,6 @@ class TestEnvSensors(unittest.TestCase):
     now.return_value = 1234567890000
     self.service.on_data('xbee.data', self.data)
     zones = self.service.properties()['zones']
-    eq_(zones['zone1']['tempF'], 67.21519061583578)
+    eq_(zones['zone1']['tempF'], 65.53519061583577)
     eq_(zones['zone1']['humidity'], 49.215754039178876)
     eq_(zones['zone1']['lastUpdate'], 1234567890000)

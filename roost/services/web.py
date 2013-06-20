@@ -1,6 +1,7 @@
 from twisted.application import service, internet
 from twisted.internet import reactor
 from twisted.web import server, resource, static
+from twisted.python import log
 
 import json
 import roost
