@@ -18,22 +18,32 @@ def _to_hex(source_addr):
 class XBeeReader(txXBee):
   def __init__(self, *args, **kwds):
     super(XBeeReader, self).__init__(*args, **kwds)
-    self.sources = set()
+    self.on_data = None
 
   def handle_packet(self, packet):
     source = _to_hex(packet['source_addr_long'])
-    if not source in self.sources:
-      events.fire('xbee.source.new', {"source": source, "samples": packet['samples']})
-      self.sources.add(source)
-    return events.fire('xbee.data', {"source": source, "samples": packet['samples']})
+    data = {"source": source, "samples": packet['samples']}
+    if self.on_data: self.on_data(data)
 
 class XBeeService(service.Service):
   def __init__(self, opts={}):
     self.setName('xbee')
     self.device = opts.get('xbee_device')
     self.reader = XBeeReader(escaped=True)
+    self.reader.on_data = self._on_data
     self.opts = opts
+    self.sources = {}
     self.test_devices = None
+
+  def _new_source(self):
+    return dict()
+
+  def _on_data(self, data):
+    source = data['source']
+    if not source in self.sources:
+      events.fire('xbee.source.new', data)
+      self.sources[source] = self._new_source()
+    return events.fire('xbee.data', data)
 
   def _publish_test_data(self, data_dir):
     if not self.test_devices:
@@ -60,9 +70,9 @@ class XBeeService(service.Service):
       log.msg("Could not find device or directory" + self.device)
 
   def properties(self):
-    return {'sources': list(self.get_sources())}
+    return {'sources': self.get_sources()}
 
   def get_sources(self):
-    return list(self.reader.sources)
+    return self.sources
 
 roost.add_service(XBeeService)
