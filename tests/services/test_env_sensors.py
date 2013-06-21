@@ -19,7 +19,7 @@ class TestEnvSensors(unittest.TestCase):
 
   @patch('roost.services.env_sensors.now_millis')
   def test_on_data(self, now):
-    self.service.set_prop('sources/0:13:a2:0:40:89:e5:43', 'zone1')
+    self.service.properties()['sources/0:13:a2:0:40:89:e5:43'] = 'zone1'
     now.return_value = 1234567890000
     self.service.on_data('xbee.data', self.data)
     props = self.service.properties()
@@ -28,7 +28,7 @@ class TestEnvSensors(unittest.TestCase):
     eq_(props['zones/zone1/lastUpdate'], 1234567890000)
 
   def test_unknown_device(self):
-    self.service.set_prop('sources/0:13:a2:0:40:89:e5:43', 'zone2')
+    self.service.properties()['sources/0:13:a2:0:40:89:e5:43'] = 'zone2'
     self.service.on_data('xbee.data', self.data)
     assert not self.service.properties()['zones/zone1/tempF']
 

@@ -31,15 +31,12 @@ class EnvSensors(service.Service):
     return reading
 
   def on_data(self, event, data):
-    zone = self._properties['sources/' + data['source']]
+    zone = self._properties.get_in('sources', data['source'])
     reading = self._parse_samples(data['samples'])
     self._properties.update_in('zones', zone, reading)
 
   def properties(self):
     return self._properties
-
-  def set_prop(self, key, val):
-    self._properties[key] = val
 
   def startService(self):
     service.Service.startService(self)

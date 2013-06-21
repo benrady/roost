@@ -40,6 +40,8 @@ class TestProperies(unittest.TestCase):
   def test_update_in(self):
     self.p.update_in('zones', 'zone1', {'temp': 1})
     self.p.update_in('zones', 'zone2', 'temp', 2)
+    self.p.update_in('sources', 'ab:cd')
     eq_(self.p['zones/zone1/temp'], 1)
     eq_(self.p['zones/zone2/temp'], 2)
+    eq_(self.p['sources'], 'ab:cd')
 

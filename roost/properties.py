@@ -45,4 +45,7 @@ class Properties(dict):
     return result
 
   def update_in(self, *args):
-    self["/".join(args[0:-1])] = args[-1]
+    self["/".join(args[:-1])] = args[-1]
+
+  def get_in(self, *args):
+    return self["/".join(args)]
