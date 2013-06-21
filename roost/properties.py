@@ -6,6 +6,8 @@ def _dict_merge(a, b):
   on both values and the result stored in the returned dictionary.'''
   if not isinstance(b, dict):
     return b
+  if not isinstance(a, dict):
+    a = {a: None}
   result = copy.deepcopy(a)
   for k, v in b.iteritems():
     if k in result and isinstance(result[k], dict):
@@ -37,7 +39,7 @@ class Properties(dict):
       dict.__setitem__(self, subkey, value)
 
   def export(self):
-    '''Converts the property heirarchy to a dict (of dicts or lists, depending on the data}'''
+    '''Converts the property heirarchy to a dict (of dicts...depending on the data)'''
     result = {}
     for key, val in self.items():
       keylist = key.split('/')

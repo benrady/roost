@@ -16,7 +16,7 @@ class TestProperies(unittest.TestCase):
     self.p['zones/zone2'] = 'two'
     eq_(self.p['zones/zone2'], 'two')
     eq_(self.p.keys(), ['zones/zone2'])
-    #eq_(self.p['zones'], ['zone2'])
+    #FIXME eq_(self.p['zones'], {"zone2": 'two'})
 
   def test_missing_keys(self):
     eq_(self.p['missing'], None)
@@ -27,9 +27,13 @@ class TestProperies(unittest.TestCase):
     eq_(self.p.keys(), ['zones', 'zones/zone2'])
 
   def test_export(self):
+    self.p['devices'] = ["a", "b", "c"]
     self.p['zones/zone2'] = 'two'
     self.p['zones/zone1'] = 1
-    eq_(self.p.export(), {'zones': {'zone1': 1, 'zone2': 'two'}})
+    self.p['zones'] = 'foo' # You'd never really want to do this, but you can
+    eq_(self.p.export(), {
+      'zones': {'zone1': 1, 'zone2': 'two', 'foo': None}, 
+      'devices': ["a", "b", "c"]})
   
   def test_set(self):
     self.p['zones/zone1/temp'] = 'one'
