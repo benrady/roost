@@ -1,18 +1,18 @@
 from twisted.application import service
 import time
 import roost
+from roost import properties
 
 def now_millis():
   return int(round(time.time() * 1000))
 
 class EnvSensors(service.Service):
   def __init__(self, opts={}):
+    self._properties = properties.Properties()
     self.setName('env_sensors')
     self.calibration = 0.0
-    self.zones = {
-        "zone1": {"name": "Zone 1"},
-        "zone2": {"name": "Zone 2"}
-    }
+    self._properties['zones/zone1/name'] = 'Zone 1'
+    self._properties['zones/zone2/name'] = 'Zone 2'
 
   def _read_sample(self, samples, pin):
     # XBee analog pins
@@ -30,24 +30,19 @@ class EnvSensors(service.Service):
       reading.update({'humidity': (pin1 - 0.22) * 0.073632 })
     return reading
 
-  def _update_zone(self, source, reading):
-    for k, zone in self.zones.items():
-      if zone.get('source', None) == source: 
-        zone.update(reading)
-
   def on_data(self, event, data):
+    zone = self._properties['sources/' + data['source']]
     reading = self._parse_samples(data['samples'])
-    self._update_zone(data['source'], reading)
+    self._properties.update_in('zones', zone, reading)
 
   def properties(self):
-    return {"zones": self.zones}
+    return self._properties
+
+  def set_prop(self, key, val):
+    self._properties[key] = val
 
   def startService(self):
     service.Service.startService(self)
     roost.listen_to('xbee.data', self.on_data)
-
-  # FIXME Set this as a property
-  def assign_device(self, zone, source):
-    self.zones[zone]['source'] = source
 
 roost.add_service(EnvSensors)

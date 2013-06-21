@@ -1,6 +1,6 @@
 import copy
 
-def dict_merge(a, b):
+def _dict_merge(a, b):
   '''recursively merges dict's. not just simple a['key'] = b['key'], if
   both a and bhave a key who's value is a dict then dict_merge is called
   on both values and the result stored in the returned dictionary.'''
@@ -14,19 +14,35 @@ def dict_merge(a, b):
       result[k] = copy.deepcopy(v)
   return result 
 
+def _build_map(keylist, val):
+  if len(keylist) == 0:
+    return val
+  return {keylist[0]: _build_map(keylist[1:], val)}
+
 class Properties(dict):
 
-  def export(self, extras):
-    return dict_merge(self, extras)
+  def __getitem__(self, subkey):
+    if self.has_key(subkey):
+      return dict.__getitem__(self, subkey)
+    return None
+    #children = [key.split('/') for key, val in self.items() if key.startswith(subkey)]
+    #return children
 
-  def save(self, path, value):
-    d = self
-    keys = path.split('/')
-    for k in keys[:-1]: 
-      if not d.has_key(k):
-        d[k] = {}
-      d = d[k]
+  def __setitem__(self, subkey, value):
+    '''Set a value, merging keys and values in a dict onto a subkey in the properties'''
+    if isinstance(value, dict):
+      for key, val in value.items():
+        dict.__setitem__(self, subkey + '/' + key, val)
+    else:
+      dict.__setitem__(self, subkey, value)
 
-    d[keys[-1]] = value
+  def export(self):
+    '''Converts the property heirarchy to a dict (of dicts or lists, depending on the data}'''
+    result = {}
+    for key, val in self.items():
+      keylist = key.split('/')
+      result[keylist[0]] = _dict_merge(result.get(keylist[0], {}), _build_map(keylist[1:], val))
+    return result
 
-
+  def update_in(self, *args):
+    self["/".join(args[0:-1])] = args[-1]
