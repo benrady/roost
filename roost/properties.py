@@ -21,11 +21,14 @@ def _build_map(keylist, val):
     return val
   return {keylist[0]: _build_map(keylist[1:], val)}
 
-class Properties(dict):
+class Properties():
+
+  def __init__(self):
+    self._dict = dict()
 
   def __getitem__(self, subkey):
-    if self.has_key(subkey):
-      return dict.__getitem__(self, subkey)
+    if self._dict.has_key(subkey):
+      return self._dict[subkey] 
     return None
     #children = [key.split('/') for key, val in self.items() if key.startswith(subkey)]
     #return children
@@ -34,14 +37,14 @@ class Properties(dict):
     '''Set a value, merging keys and values in a dict onto a subkey in the properties'''
     if isinstance(value, dict):
       for key, val in value.items():
-        dict.__setitem__(self, subkey + '/' + key, val)
+        self._dict[subkey + '/' + key] = val
     else:
-      dict.__setitem__(self, subkey, value)
+      self._dict[subkey] = value
 
   def export(self):
     '''Converts the property heirarchy to a dict (of dicts...depending on the data)'''
     result = {}
-    for key, val in self.items():
+    for key, val in self._dict.items():
       keylist = key.split('/')
       result[keylist[0]] = _dict_merge(result.get(keylist[0], {}), _build_map(keylist[1:], val))
     return result

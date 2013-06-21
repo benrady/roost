@@ -15,8 +15,7 @@ class TestProperies(unittest.TestCase):
   def test_heirarchy(self):
     self.p['zones/zone2'] = 'two'
     eq_(self.p['zones/zone2'], 'two')
-    eq_(self.p.keys(), ['zones/zone2'])
-    #FIXME eq_(self.p['zones'], {"zone2": 'two'})
+    eq_(self.p['zones'], {"zone2": 'two'})
 
   def test_missing_keys(self):
     eq_(self.p['missing'], None)
@@ -24,7 +23,7 @@ class TestProperies(unittest.TestCase):
   def test_values_at_every_level(self):
     self.p['zones/zone2'] = 'two'
     self.p['zones'] = 'foo'
-    eq_(self.p.keys(), ['zones', 'zones/zone2'])
+    eq_(self.p['zones/zone2'], 'two')
 
   def test_export(self):
     self.p['devices'] = ["a", "b", "c"]
