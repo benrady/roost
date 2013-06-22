@@ -44,7 +44,9 @@ class Properties():
     last_key = keylist[-1]
     d[last_key] = _dict_merge(d.get(last_key, {}), value)
     if self.save_path:
-      os.makedirs(os.path.dirname(self.save_path))
+      dirname = os.path.dirname(self.save_path)
+      if not os.path.exists(dirname):
+        os.makedirs(dirname)
       with open(self.save_path, 'w') as f:
         pickle.dump(self._dict, f)
 
