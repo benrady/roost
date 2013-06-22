@@ -12,3 +12,4 @@ _trial_temp*
 tags
 twistd.log
 twistd.pid
+@test_*

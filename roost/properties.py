@@ -1,56 +1,63 @@
 import copy
 
 def _dict_merge(a, b):
-  '''recursively merges dict's. not just simple a['key'] = b['key'], if
-  both a and bhave a key who's value is a dict then dict_merge is called
-  on both values and the result stored in the returned dictionary.'''
-  if not isinstance(b, dict):
+  if not isinstance(b, dict) or  not isinstance(a, dict):
     return b
-  if not isinstance(a, dict):
-    a = {a: None}
   result = copy.deepcopy(a)
   for k, v in b.iteritems():
     if k in result and isinstance(result[k], dict):
-      result[k] = dict_merge(result[k], v)
+      result[k] = _dict_merge(result[k], v)
     else:
       result[k] = copy.deepcopy(v)
   return result 
 
-def _build_map(keylist, val):
-  if len(keylist) == 0:
-    return val
-  return {keylist[0]: _build_map(keylist[1:], val)}
+def _expand_dict(d, keylist):
+  for k in keylist[:-1]:
+    if k not in d or not isinstance(d[k], dict):
+      d[k] = {} 
+    d = d[k]
+  return d
 
 class Properties():
 
   def __init__(self):
-    self._dict = dict()
+    self._dict = {}
 
   def __getitem__(self, subkey):
-    if self._dict.has_key(subkey):
-      return self._dict[subkey] 
-    return None
-    #children = [key.split('/') for key, val in self.items() if key.startswith(subkey)]
-    #return children
+    keylist = subkey.split('/')
+    d = self._dict
+    for k in keylist[:-1]:
+      d = d[k]
+    return d.get(keylist[-1], {})
 
   def __setitem__(self, subkey, value):
     '''Set a value, merging keys and values in a dict onto a subkey in the properties'''
-    if isinstance(value, dict):
-      for key, val in value.items():
-        self._dict[subkey + '/' + key] = val
-    else:
-      self._dict[subkey] = value
+    keylist = subkey.split('/')
+
+    d = _expand_dict(self._dict, keylist)
+
+    last_key = keylist[-1]
+    d[last_key] = _dict_merge(d.get(last_key, {}), value)
 
   def export(self):
-    '''Converts the property heirarchy to a dict (of dicts...depending on the data)'''
-    result = {}
-    for key, val in self._dict.items():
-      keylist = key.split('/')
-      result[keylist[0]] = _dict_merge(result.get(keylist[0], {}), _build_map(keylist[1:], val))
-    return result
+    """Export the properties to a map suitable for JSONificaiton"""
+    return copy.deepcopy(self._dict)
 
   def update_in(self, *args):
+    """Assign a value by treating the arguments as elements in a key path, 
+    except the final argument which is used as the value
+
+    >>> p = Properties()
+    >>> p.update_in('one', 'two', 'three', 4)
+    >>> p.export()
+    {'one': {'two': {'three': 4}}}"""
     self["/".join(args[:-1])] = args[-1]
 
   def get_in(self, *args):
+    """Get a value by treating the arguments as elements in a key path
+
+    >>> p = Properties()
+    >>> p['one/two/three'] = 4
+    >>> p.get_in('one', 'two', 'three')
+    4"""
     return self["/".join(args)]

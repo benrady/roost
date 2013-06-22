@@ -13,25 +13,38 @@ class TestProperies(unittest.TestCase):
     self.p = properties.Properties()
 
   def test_heirarchy(self):
-    self.p['zones/zone2'] = 'two'
-    eq_(self.p['zones/zone2'], 'two')
-    eq_(self.p['zones'], {"zone2": 'two'})
+    self.p['zones/zone2/name'] = 'two'
+    self.p['zones/zone2/bitflags'] = [1, 2, 8]
+    eq_(self.p['zones/zone2/name'], 'two')
+    eq_(self.p['zones'], {"zone2": {'name': 'two', 'bitflags': [1, 2, 8]}})
 
   def test_missing_keys(self):
-    eq_(self.p['missing'], None)
+    eq_(self.p['missing'], {})
 
-  def test_values_at_every_level(self):
-    self.p['zones/zone2'] = 'two'
+  def test_incompatible_values_are_overwritten(self):
     self.p['zones'] = 'foo'
-    eq_(self.p['zones/zone2'], 'two')
+    self.p['zones/zone2'] = 'two'
+    eq_(self.p['zones'], {'zone2': 'two'})
+
+    self.p['zones/zone2/a/b/c'] = 'd'
+    eq_(self.p['zones'], {'zone2': {'a': {'b': {'c': 'd'}}}})
+
+  def test_maps_are_merged(self):
+    self.p['zones/zone2'] = 'two'
+    self.p['zones'] = {'zone1': 'one'}
+    eq_(self.p['zones'], {'zone2': 'two', 'zone1': 'one'})
+
+  def test_creates_keys_for_submaps(self):
+    self.p['zones'] = {'zone1': {'name': 'one'}}
+    self.p['zones/zone1/device/addr'] = 'abc123'
+    eq_(self.p['zones/zone1/device/addr'], 'abc123')
 
   def test_export(self):
     self.p['devices'] = ["a", "b", "c"]
     self.p['zones/zone2'] = 'two'
     self.p['zones/zone1'] = 1
-    self.p['zones'] = 'foo' # You'd never really want to do this, but you can
     eq_(self.p.export(), {
-      'zones': {'zone1': 1, 'zone2': 'two', 'foo': None}, 
+      'zones': {'zone1': 1, 'zone2': 'two'}, 
       'devices': ["a", "b", "c"]})
   
   def test_set(self):
