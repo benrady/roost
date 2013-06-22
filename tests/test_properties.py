@@ -61,3 +61,10 @@ class TestProperies(unittest.TestCase):
     eq_(self.p['zones/zone2/temp'], 2)
     eq_(self.p['sources'], 'ab:cd')
 
+  def test_save(self):
+    p = properties.Properties('data/test')
+    p['foo'] = 'bar'
+    p = properties.Properties('data/test')
+    eq_(p['foo'], 'bar')
+
+

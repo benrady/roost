@@ -46,9 +46,8 @@ class TestXBeeService(unittest.TestCase):
     self.service._on_data(self.data)
     eq_(fire.call_count, 3) # Would be four times if the source weren't new
 
-
   def test_properties(self):
-    eq_(self.service.properties(), {'sources': {}})
+    eq_(self.service.properties.export(), {'sources': {}})
 
   def test_fake_devices(self):
     self.service._publish_test_data('../testdata/devices')

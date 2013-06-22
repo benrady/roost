@@ -8,7 +8,7 @@ from struct import unpack
 
 import sys, os, pickle
 import roost
-from roost import events
+from roost import events, properties
 
 from txXBee.protocol import txXBee
 
@@ -34,6 +34,8 @@ class XBeeService(service.Service):
     self.opts = opts
     self.sources = {}
     self.test_devices = None
+    self.properties = properties.Properties()
+    self.properties['sources'] = {}
 
   def _new_source(self):
     return dict()
@@ -68,9 +70,6 @@ class XBeeService(service.Service):
         self.port = SerialPort(self.reader, self.device, reactor, baudrate=9600)
     else:
       log.msg("Could not find device or directory" + self.device)
-
-  def properties(self):
-    return {'sources': self.get_sources()}
 
   def get_sources(self):
     return self.sources

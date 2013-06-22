@@ -8,11 +8,11 @@ def now_millis():
 
 class EnvSensors(service.Service):
   def __init__(self, opts={}):
-    self._properties = properties.Properties()
+    self.properties = properties.Properties()
     self.setName('env_sensors')
     self.calibration = 0.0
-    self._properties['zones/zone1/name'] = 'Zone 1'
-    self._properties['zones/zone2/name'] = 'Zone 2'
+    self.properties['zones/zone1/name'] = 'Zone 1'
+    self.properties['zones/zone2/name'] = 'Zone 2'
 
   def _read_sample(self, samples, pin):
     # XBee analog pins
@@ -31,12 +31,9 @@ class EnvSensors(service.Service):
     return reading
 
   def on_data(self, event, data):
-    zone = self._properties.get_in('sources', data['source'])
+    zone = self.properties.get_in('sources', data['source'])
     reading = self._parse_samples(data['samples'])
-    self._properties.update_in('zones', zone, reading)
-
-  def properties(self):
-    return self._properties
+    self.properties.update_in('zones', zone, reading)
 
   def startService(self):
     service.Service.startService(self)

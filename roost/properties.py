@@ -1,4 +1,4 @@
-import copy
+import copy, os, pickle
 
 def _dict_merge(a, b):
   if not isinstance(b, dict) or  not isinstance(a, dict):
@@ -20,8 +20,13 @@ def _expand_dict(d, keylist):
 
 class Properties():
 
-  def __init__(self):
+  def __init__(self, save_path=None):
     self._dict = {}
+    self.save_path = save_path
+    if self.save_path:
+      if os.path.exists(self.save_path):
+        with open(self.save_path) as f:
+          self._dict = pickle.load(f)
 
   def __getitem__(self, subkey):
     keylist = subkey.split('/')
@@ -38,6 +43,10 @@ class Properties():
 
     last_key = keylist[-1]
     d[last_key] = _dict_merge(d.get(last_key, {}), value)
+    if self.save_path:
+      os.makedirs(os.path.dirname(self.save_path))
+      with open(self.save_path, 'w') as f:
+        pickle.dump(self._dict, f)
 
   def export(self):
     """Export the properties to a map suitable for JSONificaiton"""
