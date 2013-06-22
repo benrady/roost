@@ -1,7 +1,11 @@
 from twisted.application import service
 import time
 import roost
+<<<<<<< HEAD
 from roost import properties
+=======
+from roost import storage
+>>>>>>> storage
 
 def now_millis():
   return int(round(time.time() * 1000))
@@ -11,8 +15,16 @@ class EnvSensors(service.Service):
     self.properties = properties.Properties()
     self.setName('env_sensors')
     self.calibration = 0.0
+<<<<<<< HEAD
     self.properties['zones/zone1/name'] = 'Zone 1'
     self.properties['zones/zone2/name'] = 'Zone 2'
+=======
+    self.zones = {
+        "zone1": {"name": "Zone 1"},
+        "zone2": {"name": "Zone 2"}
+    }
+    self.storage = storage.Storage(opts.get('data-dir'), self.name)
+>>>>>>> storage
 
   def _read_sample(self, samples, pin):
     # XBee analog pins

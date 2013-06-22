@@ -17,6 +17,7 @@ class Options(usage.Options):
         ['xbee_device', 'x', 'testdata/devices', 'Path to the XBee controller radio or pickled packet files'],
         ['port', 'p', '8080', 'Web application port'],
         ['telnet-users', 't', 'deb/users.txt'],
+        ['data-dir', 'd', 'data'],
         ['web-dir', 'w', 'web/public', 'Web application files'],
     ]
 
