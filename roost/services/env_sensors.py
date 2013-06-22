@@ -13,34 +13,56 @@ class EnvSensors(service.Service):
     if opts.has_key('data-dir'):
       self.storage = storage.Storage(opts.get('data-dir'), self.name)
       propfile = opts.get('data-dir') + '/env_sensors/properties'
-    self.calibration = 0.0
     self.properties = properties.Properties(propfile)
-    self.properties['zones/zone1/name'] = 'Zone 1'
-    self.properties['zones/zone2/name'] = 'Zone 2'
+    self.properties['sources'] = {}
+    self._pin_types = {
+        "tempF": self._read_temp,
+        "humidity": self._read_humidity
+    }
 
-  def _read_sample(self, samples, pin):
-    # XBee analog pins
-    # 0 - 1.2v = 0 - 1023
-    if samples[0].has_key(pin):
-      return 1200 * (samples[0][pin] / 1023.0)
+  def _read_temp(self, pin):
+    return {'tempF': (pin / 10)}
 
-  def _parse_samples(self, samples):
+  def _read_humidity(self, pin):
+    return {'humidity': (pin - 0.22) * 0.073632 }
+
+  def _read_analog_pin(self, pin):
+    return 1200 * (pin / 1023.0)
+
+  def _read_pins(self, samples, pinout):
     reading = {'lastUpdate': _now_millis()}
-    pin0 = self._read_sample(samples, 'adc-0')
-    if pin0:
-      reading.update({'tempF': (pin0 / 10) + self.calibration})
-    pin1 = self._read_sample(samples, 'adc-1')
-    if pin1: 
-      reading.update({'humidity': (pin1 - 0.22) * 0.073632 })
+    for sample in samples:
+      for pin in sample.keys():
+        volts = self._read_analog_pin(sample[pin])
+        reading.update(self._pin_types[pinout[pin]](volts))
     return reading
 
+  def _get_pinout(self, source):
+    return self.properties.get_in('sources', source, 'pinout')
+
   def on_data(self, event, data):
-    zone = self.properties.get_in('sources', data['source'])
-    reading = self._parse_samples(data['samples'])
-    self.properties.update_in('zones', zone, reading)
+    reading = self._read_pins(data['samples'], self._get_pinout(data['source']))
+    self.properties.update_in('sources', data['source'], 'reading', reading)
+
+  def on_new_device(self, event, data):
+    if not data['source'] in self.sources():
+      pinout = {}
+      for sample in data['samples']:
+        for pin in sample.keys():
+          pinout[pin] = None
+      self.properties.update_in('sources', data['source'], 'pinout', pinout)
+
+  def pin_types(self):
+    """Returns the kinds of readings that can be taken using this service"""
+    return self._pin_types.keys()
+
+  def sources(self):
+    """Returns the source objects that repesent the sources this service has been notified of"""
+    return self.properties['sources']
 
   def startService(self):
     service.Service.startService(self)
     roost.listen_to('xbee.data', self.on_data)
+    roost.listen_to('xbee.source.new', self.new_source)
 
 roost.add_service(EnvSensors)
