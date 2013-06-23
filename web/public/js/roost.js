@@ -69,7 +69,9 @@ function homeView() {
         $('<h2>').text(source.zone),
         $('<span>').addClass('big-text').text(Math.round(source.reading.tempF) + '°')
       ));
-      humidity.find('.humidity').text("Relative Humidity: " + Math.round(source.reading.humidity) + '%')
+      if (source.reading.humidity) {
+        humidity.find('.humidity').text("Relative Humidity: " + Math.round(source.reading.humidity) + '%')
+      }
     });
   }
 
