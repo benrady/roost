@@ -25,7 +25,7 @@ case "$1" in
       roost -w $ROOST_HOME/web/public \
             -x $xbee_device \
             -p 80 \
-            -t /etc/roost/users.txt
+            -t /etc/roost/users.txt \
             -d $data_dir
     ;;
   stop)
