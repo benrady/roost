@@ -33,6 +33,10 @@ Roost is currently under development. Roost is expected to be released as a debi
 
 `sudo python setup.py install`
 
+## Support
+
+Telnet access
+
 ## Development
 
 Roost is primarily test driven. Run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).

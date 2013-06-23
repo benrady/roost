@@ -62,13 +62,14 @@ function homeView() {
     });
   }
 
-  function updateZones(zoneData) {  
+  function updateZones(props) {  
     zoneList.empty();
-    _.each(zoneData.zones, function(data, zone) {  
+    _.each(props.sources, function(source, id) {  
       zoneList.append($('<div>').addClass('span6 text-center well').append(
-        $('<h2>').text(data.name),
-        $('<span>').addClass('big-text').text(Math.round(data.tempF) + '°')
+        $('<h2>').text(source.zone),
+        $('<span>').addClass('big-text').text(Math.round(source.reading.tempF) + '°')
       ));
+      humidity.find('.humidity').text("Relative Humidity: " + Math.round(source.reading.humidity) + '%')
     });
   }
 
@@ -79,20 +80,20 @@ function homeView() {
 
   var conditions = $('<div>').addClass('current-conditions row-fluid bottom-margin');
   var forecast = $('<div>').addClass('forecast-list row-fluid');
+  var humidity = $('#template .humidity-row').clone();
   var zoneList = $('<div>').addClass('zone-list row-fluid top-margin');
 
   var interval = setInterval(refreshData, 1000 * 60 * 60);
   refreshData();
 
   var view = $('<div>').
-    append(conditions, forecast, zoneList);
+    append(conditions, forecast, zoneList, humidity);
   view.bind('Roost.viewClose', function() { clearInterval(interval); })
   return view;
 }
 
 function deviceView() {
   var view = $('<div>');
-  // FIXME How do we fake out this data in development?
   $.getJSON('/services/xbee/properties', function(props) {  
     _.each(props.sources, function(source) {  
       view.append($('<div>').addClass('row-fluid').append($('<span>').addClass('span3').text(source)));

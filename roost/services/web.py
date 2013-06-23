@@ -12,7 +12,7 @@ class ServiceResource(resource.Resource):
     def render_GET(self, request):
       service = roost.services.find(request.postpath[0])
       if request.postpath[1] == 'properties':
-        return json.dumps(service.properties())
+        return json.dumps(service.properties.export())
 
 class Web(service.Service):
   def __init__(self, opts):

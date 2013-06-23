@@ -20,8 +20,8 @@ def _expand_dict(d, keylist):
 
 class Properties():
 
-  def __init__(self, save_path=None):
-    self._dict = {}
+  def __init__(self, save_path=None, **kwargs):
+    self._dict = kwargs.get('defaults', {})
     self.save_path = save_path
     if self.save_path:
       if os.path.exists(self.save_path):

@@ -67,4 +67,8 @@ class TestProperies(unittest.TestCase):
     p = properties.Properties('data/test')
     eq_(p['foo'], 'bar')
 
+  def test_default_properties(self):
+    p = properties.Properties(defaults={'foo': 'bar'})
+    eq_(p.export(), {'foo':'bar'})
+
 

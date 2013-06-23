@@ -1,3 +1,4 @@
+from roost import properties
 import roost.services
 from roost.services import web
 from nose.tools import * 
@@ -33,15 +34,13 @@ class TestServiceResource(unittest.TestCase):
   def test_get_properties(self, find):
     service = Mock()
     service.name = 'web'
-    service.properties = Mock()
-    props = {"prop1": 1}
-    service.properties.return_value = props
+    service.properties = properties.Properties(defaults={"prop1": 1})
     find.return_value = service
     r = web.ServiceResource()
     request = DummyRequest(['web', 'properties'])
     d = _render(r, request)
     def rendered(ignored):
       self.assertEquals(request.responseCode, None) # Gets treated as 200 OK
-      self.assertEquals(json.loads("".join(request.written)), props)
+      self.assertEquals(json.loads("".join(request.written)), {'prop1': 1})
     d.addCallback(rendered)
     return d
