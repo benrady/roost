@@ -14,7 +14,7 @@ def telnet_service(user_file):
   namespace = {'roost': roost}
   shell_options = {
     'namespace'  : namespace,
-    'passwd'     : 'deb/users.txt',
+    'passwd'     : user_file,
     'sshPort'    : None,
     'telnetPort' : '4040',
   }

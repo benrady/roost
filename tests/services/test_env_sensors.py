@@ -28,7 +28,7 @@ class TestEnvSensors(unittest.TestCase):
   def test_unconfigured_device(self):
     self.service.on_new_device('xbee.data', self.data)
     self.service.on_data('xbee.data', self.data)
-    eq_(self.props['sources/0:13:a2:0:40:89:e5:43/pinout/adc-0'], 'tempF')
+    assert not self.props['sources/0:13:a2:0:40:89:e5:43/pinout/adc-0']
 
   @patch('roost.services.env_sensors._now_millis')
   def test_on_data(self, now):
