@@ -5,7 +5,8 @@ from mock import Mock, patch
 from twisted.trial import unittest
 
 class TestMain(unittest.TestCase):
-  def test_make_service(self):
+  @patch('roost.find_service')
+  def test_make_service(self, find):
     return makeService({
       'xbee_device': 'testdata/devices',
       'port': '8080',

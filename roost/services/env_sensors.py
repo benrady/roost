@@ -44,17 +44,14 @@ class EnvSensors(service.Service):
 
   def on_data(self, event, data):
     """Event handler for incoming XBee data"""
-    reading = self._read_pins(data['samples'], self._get_pinout(data['source']))
-    self.properties.update_in('sources', data['source'], 'reading', reading)
-
-  def on_new_device(self, event, data):
-    """Event handler for a new XBee device"""
     if not data['source'] in self.sources():
       pinout = {}
       for sample in data['samples']:
         for pin in sample.keys():
           pinout[pin] = None
       self.properties.update_in('sources', data['source'], 'pinout', pinout)
+    reading = self._read_pins(data['samples'], self._get_pinout(data['source']))
+    self.properties.update_in('sources', data['source'], 'reading', reading)
 
   def pin_types(self):
     """Returns the kinds of readings that can be taken using this service"""
@@ -67,6 +64,5 @@ class EnvSensors(service.Service):
   def startService(self):
     service.Service.startService(self)
     roost.listen_to('xbee.data', self.on_data)
-    roost.listen_to('xbee.source.new', self.on_new_device)
 
 roost.add_service(EnvSensors)

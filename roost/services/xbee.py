@@ -15,22 +15,26 @@ from txXBee.protocol import txXBee
 def _to_hex(source_addr):
   return ":".join("{0:x}".format(ord(c)) for c in source_addr)
 
+def _from_hex(source):
+  return "".join([chr(int(b, 16)) for b in source.split(":")])
+
 class XBeeReader(txXBee):
   def __init__(self, *args, **kwds):
     super(XBeeReader, self).__init__(*args, **kwds)
-    self.on_data = None
+    self.on_packet = None
+    self.print_packets = False
 
   def handle_packet(self, packet):
-    source = _to_hex(packet['source_addr_long'])
-    data = {"source": source, "samples": packet['samples']}
-    if self.on_data: self.on_data(data)
+    if self.print_packets:
+      print packet
+    if self.on_packet: self.on_packet(packet)
 
 class XBeeService(service.Service):
   def __init__(self, opts={}):
     self.setName('xbee')
     self.device = opts.get('xbee_device')
     self.reader = XBeeReader(escaped=True)
-    self.reader.on_data = self._on_data
+    self.reader.on_packet = self._on_packet
     self.opts = opts
     self.sources = {}
     self.test_devices = None
@@ -40,12 +44,14 @@ class XBeeService(service.Service):
   def _new_source(self):
     return dict()
 
-  def _on_data(self, data):
-    source = data['source']
+  def _on_packet(self, packet):
+    source = _to_hex(packet['source_addr_long'])
     if not source in self.sources:
-      events.fire('xbee.source.new', data)
-      self.sources[source] = self._new_source()
-    return events.fire('xbee.data', data)
+      self.sources[source] = {'source_addr_long': packet['source_addr_long'], 'source_addr': packet['source_addr']}
+      events.fire('xbee.source.new', {'source': source, 'samples': packet.get('samples', [])})
+    if packet.has_key('samples'):
+      data = {"source": source, "samples": packet['samples'], 'source_addr': _to_hex(packet['source_addr'])}
+      return events.fire('xbee.data', data)
 
   def _publish_test_data(self, data_dir):
     if not self.test_devices:
@@ -73,5 +79,14 @@ class XBeeService(service.Service):
 
   def get_sources(self):
     return self.sources
+
+  # http://www.digi.com/support/kbase/kbaseresultdetl?id=3221
+  def send_at_command(self, device_addr, command):
+    source = self.sources[device_addr]
+    return reactor.callFromThread(self.reader.send,
+      'remote_at', 
+      dest_addr_long=source['source_addr_long'], 
+      dest_addr=source['source_addr'], 
+      command=command)
 
 roost.add_service(XBeeService)

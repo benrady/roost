@@ -11,7 +11,7 @@ from roost.services import xbee, env_sensors, web
 
 def telnet_service(user_file):
   import roost
-  namespace = {'roost': roost}
+  namespace = {'roost': roost, 'xbee': roost.find_service('xbee')}
   shell_options = {
     'namespace'  : namespace,
     'passwd'     : user_file,
