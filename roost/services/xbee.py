@@ -38,8 +38,7 @@ class XBeeService(service.Service):
     self.opts = opts
     self.sources = {}
     self.test_devices = None
-    self.properties = properties.Properties()
-    self.properties['sources'] = {}
+    self.properties = properties.Properties(defaults={'sources':{}})
 
   def _new_source(self):
     return dict()
@@ -81,6 +80,7 @@ class XBeeService(service.Service):
     return self.sources
 
   # http://www.digi.com/support/kbase/kbaseresultdetl?id=3221
+  # https://code.google.com/p/python-xbee/source/browse/xbee/zigbee.py#35
   def send_at_command(self, device_addr, command):
     source = self.sources[device_addr]
     return reactor.callFromThread(self.reader.send,
