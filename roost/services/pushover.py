@@ -5,7 +5,13 @@ from roost import properties, httpclient
 # https://pushover.net/api
 class PushoverService(service.Service):
   def __init__(self, opts={}):
-    self.properties = properties.Properties(defaults={'users':[]})
+    self.setName('pushover')
+
+    # FIXME Duplicated in env_sensors.py
+    propfile = None
+    if opts.has_key('data-dir'):
+      propfile = opts.get('data-dir') + '/' + self.name + '/properties'
+    self.properties = properties.Properties(propfile, defaults={'users':[]})
 
   def _send(self, **kwargs):
     for user in self.properties['users']:
@@ -33,3 +39,4 @@ class PushoverService(service.Service):
   def add_user(self, user_id):
     self.properties['users'].append(user_id)
 
+roost.add_service(PushoverService)

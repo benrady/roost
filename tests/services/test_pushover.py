@@ -16,6 +16,7 @@ class TestEnvSensors(unittest.TestCase):
   def test_start(self):
     self.service.startService()
     assert self.service.running
+    eq_(self.service.name, "pushover")
 
   @patch('roost.httpclient.post')
   def test_send_message(self, post):

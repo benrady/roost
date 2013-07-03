@@ -5,7 +5,7 @@ from twisted.internet import defer
 from twisted.internet.defer import succeed
 from twisted.web.iweb import IBodyProducer
 
-import json
+import json, urllib
 
 class StringProducer(object):
   implements(IBodyProducer)
@@ -24,6 +24,8 @@ class StringProducer(object):
   def stopProducing(self):
     pass
 
-def post(url, body):
+def post(url, body=None, **kwargs):
   agent = client.Agent(reactor)
+  if not body:
+    body = urllib.urlencode(kwargs)
   return agent.request('POST', url, bodyProducer=StringProducer(body))

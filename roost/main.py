@@ -6,7 +6,7 @@ from twisted.application import service
 from twisted.conch import manhole_tap
 
 from roost import events, services
-from roost.services import xbee, env_sensors, web
+from roost.services import xbee, env_sensors, web, pushover
 
 
 def telnet_service(user_file):
