@@ -5,6 +5,7 @@ from roost import properties, storage
 
 class Doorbell(service.Service):
   def __init__(self):
+    super(Doorbell, self).__init__(*args, **kwds)
     self.last_notification = None
 
   def on_data(self, event, data):
