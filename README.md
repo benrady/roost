@@ -1,23 +1,23 @@
-# About Roost
+# Roost -- Open Source Home Automation
+
 Roost is open-source home automation based on the Raspberry Pi
 
-Similar to the [Nest](http://www.nest.com/) thermostat, Roost adapts to your habits and figures out an optimal schedule for heat, A/C, and humidity controls.
+## Supported Devices
 
-Unlike the Nest, Roost is built around open standards and easy data access. It provides an API for data access and control and can be assembled from open-source software and hardware for under $200.
+The following devices/services are supported in the latest release
 
-## Software
+* Local Weather Reports (via Weather Underground)
+* Push notifications (via Pushover)
 
-Roost will provide simple APIs, making integration with other devices and software easy.
+Roost is an open system (both software and hardware), so you can always make your own devices using ZigBee compatible radios, or write your own Roost "service" in Python to connect Roost to a new device. 
+
+### 3rd Party Peripherals
+
+[ZigBee certified products](http://www.zigbee.org/Products/ByFunction/AllFunctions.aspx)
 
 ## Recommended Hardware
 
-Roost uses a Raspberry Pi Model B as a base station, and talks to environmental sensors using a mesh radio network, so there are no wires to run through your walls. A complete parts lists (with vendors) [will be available](https://docs.google.com/spreadsheet/ccc?key=0Ann48md_Q6mkdGxOWUYwYnFqajRUcWVmSHZIcS0xV3c#gid=0).
-
-The current hardware setup emphasizes ease of setup and flexibility over efficiency and cost, but alternate setups are greatly encouraged. Every reasonable accommodation will be made for other types of hardware.
-
-## 3rd Party Peripherals
-
-[ZigBee certified products](http://www.zigbee.org/Products/ByFunction/AllFunctions.aspx)
+Roost uses a Raspberry Pi Model B as a base station, and talks to devices in your home using a mesh radio network, so there are no wires to run. A complete parts list for a base station [will be available](https://docs.google.com/spreadsheet/ccc?key=0Ann48md_Q6mkdGxOWUYwYnFqajRUcWVmSHZIcS0xV3c#gid=0).
 
 ## Releases
 
@@ -39,6 +39,6 @@ Telnet access
 
 ## Development
 
-Roost is primarily test driven. Run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
+Roost is primarily test driven. You can run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
 
 You can run a development server like so: `twistd -n roost`
