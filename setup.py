@@ -23,7 +23,7 @@ setup(name='Roost',
       install_requires=[
         'txXBee>=0.0.4', 
         'twisted>=12.0.0',
-        'whisper>=0.9.10'
+        'whisper>=0.9.10',
         'autobahn>=0.5.14'
       ],
       url='http://github.com/benrady/roost',

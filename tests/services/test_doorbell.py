@@ -8,7 +8,7 @@ import types, unittest, shutil, os, time
 class TestDoorbellService(unittest.TestCase):
 
   def setUp(self):
-    self.service = Doorbell()
+    self.service = DoorbellService()
     self.packet_samples = [{'dio-0': True}]
     self.data = {'source': '0:13:a2:0:40:89:e5:43', 'source_addr': '0F', 'samples': self.packet_samples} 
 
@@ -16,6 +16,7 @@ class TestDoorbellService(unittest.TestCase):
   def test_start_service(self, listen_to):
     self.service.startService()
     assert self.service.running
+    eq_(self.service.name, 'doorbell')
     listen_to.assert_called_with('xbee.data', self.service.on_data)
 
   @patch('roost.notify')

@@ -3,9 +3,10 @@ import time
 import roost
 from roost import properties, storage
 
-class Doorbell(service.Service):
+class DoorbellService(service.Service):
   def __init__(self):
     self.last_notification = None
+    self.setName('doorbell')
 
   def on_data(self, event, data):
     if any([s.get('dio-0', False) for s in data['samples']]):
@@ -16,3 +17,5 @@ class Doorbell(service.Service):
   def startService(self):
     roost.listen_to('xbee.data', self.on_data)
     service.Service.startService(self)
+
+roost.add_service(DoorbellService)
