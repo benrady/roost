@@ -11,7 +11,7 @@ class DoorbellService(service.Service):
   def on_data(self, event, data):
     if any([s.get('dio-0', False) for s in data['samples']]):
       if not self.last_notification or time.time() - self.last_notification > 10:
-        roost.notify('Doorbell')
+        roost.notify('Doorbell', {'sound':'pushover'})
         self.last_notification = time.time()
 
   def startService(self):

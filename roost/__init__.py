@@ -9,6 +9,6 @@ fire_event = events.fire
 add_service = services.add
 find_service = services.find
 
-def notify(message):
+def notify(message, opts={}):
   s = find_service('pushover')
-  s.send_message(message)
+  s.send_message(message, opts)

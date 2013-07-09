@@ -22,7 +22,7 @@ class TestDoorbellService(unittest.TestCase):
   @patch('roost.notify')
   def test_send_on_true_sample(self, notify):
     self.service.on_data('xbee.data', self.data)
-    notify.assert_called_with('Doorbell')
+    notify.assert_called_with('Doorbell', {'sound':'pushover'})
 
   @patch('roost.notify')
   def test_no_send_on_false_sample(self, notify):
@@ -33,7 +33,7 @@ class TestDoorbellService(unittest.TestCase):
   @patch('roost.notify')
   def test_send_on_true_sample(self, notify):
     self.service.on_data('xbee.data', self.data)
-    notify.assert_called_with('Doorbell')
+    notify.assert_called_with('Doorbell', {'sound':'pushover'})
 
   @patch('roost.notify')
   def test_debounce(self, notify):

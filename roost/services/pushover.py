@@ -13,25 +13,17 @@ class PushoverService(service.Service):
       propfile = opts.get('data-dir') + '/' + self.name + '/properties'
     self.properties = properties.Properties(propfile, defaults={'users':[]})
 
-  def _send(self, **kwargs):
+  def _send(self, message, opts):
     for user in self.properties['users']:
-      httpclient.post('https://api.pushover.net/1/messages.json', **dict(kwargs, **{
+      httpclient.post('https://api.pushover.net/1/messages.json', **dict(opts, **{
         'user': user,
+        'message': message,
         'token': self.properties['token']
         }))
 
-  def send_message(self, msg):
+  def send_message(self, msg, opts={}):
     """Sends a low priority message to all registered devices"""
-    self._send(message=msg)
-
-  def send_alert(self, msg):
-    """Sends a high priority message to all registered devices"""
-    for user in self.properties['users']:
-      httpclient.post('https://api.pushover.net/1/messages.json', 
-          message=msg,
-          user=user,
-          token=self.properties['token'], 
-          priority=1)
+    self._send(msg, opts)
 
   def set_api_token(self, token):
     self.properties['token'] = token
