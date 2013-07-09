@@ -14,6 +14,19 @@ class TestWeb(unittest.TestCase):
     service = web.Web({'port': '80', 'web-dir': 'web/public'})
     eq_(service.name, "web")
 
+class TestEventsWebsocket(unittest.TestCase):
+  def test_on_event(self):
+    proto = web.EventsWebsocket()
+    proto.sendMessage = Mock()
+    proto.on_event('event.name', {})
+    proto.sendMessage.assert_called_with('{"eventData": {}, "event": "event.name"}', False)
+
+  @patch('roost.listen_to')
+  def test_on_message(self, listen_to):
+    proto = web.EventsWebsocket()
+    proto.onMessage('xbee.data', False)
+    listen_to.assert_called_with('xbee.data', proto.on_event)
+
 def _render(resource, request):
   result = resource.render(request)
   if isinstance(result, str):

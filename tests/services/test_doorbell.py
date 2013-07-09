@@ -9,7 +9,7 @@ class TestDoorbellService(unittest.TestCase):
 
   def setUp(self):
     self.service = Doorbell()
-    self.packet_samples = [{'ddc-0': True}]
+    self.packet_samples = [{'dio-0': True}]
     self.data = {'source': '0:13:a2:0:40:89:e5:43', 'source_addr': '0F', 'samples': self.packet_samples} 
 
   @patch('roost.listen_to')
@@ -25,7 +25,7 @@ class TestDoorbellService(unittest.TestCase):
 
   @patch('roost.notify')
   def test_no_send_on_false_sample(self, notify):
-    self.data['samples'] = [{'ddc-0': False}]
+    self.data['samples'] = [{'dio-0': False}]
     self.service.on_data('xbee.data', self.data)
     assert not notify.called
 
