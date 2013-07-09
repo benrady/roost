@@ -8,7 +8,7 @@ import types, unittest, shutil, os, time
 class TestDoorbellService(unittest.TestCase):
 
   def setUp(self):
-    self.service = DoorbellService()
+    self.service = DoorbellService({})
     self.packet_samples = [{'dio-0': True}]
     self.data = {'source': '0:13:a2:0:40:89:e5:43', 'source_addr': '0F', 'samples': self.packet_samples} 
 

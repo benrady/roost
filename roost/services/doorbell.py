@@ -4,7 +4,7 @@ import roost
 from roost import properties, storage
 
 class DoorbellService(service.Service):
-  def __init__(self):
+  def __init__(self, opts={}):
     self.last_notification = None
     self.setName('doorbell')
 
