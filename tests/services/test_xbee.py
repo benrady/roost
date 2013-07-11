@@ -37,7 +37,7 @@ class TestXBeeService(unittest.TestCase):
   @patch('roost.events.fire')
   def test_new_source(self, fire):
     self.service._on_packet(self.packet)
-    fire.assert_any_call('xbee.source.new', {
+    fire.assert_any_call('xbee.new', {
       "source": '0:13:a2:0:40:89:e5:43',
       "samples": self.packet_samples
     })

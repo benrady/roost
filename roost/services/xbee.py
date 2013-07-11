@@ -47,7 +47,7 @@ class XBeeService(service.Service):
     source = _to_hex(packet['source_addr_long'])
     if not source in self.sources:
       self.sources[source] = {'source_addr_long': packet['source_addr_long'], 'source_addr': packet['source_addr']}
-      events.fire('xbee.source.new', {'source': source, 'samples': packet.get('samples', [])})
+      events.fire('xbee.new', {'source': source, 'samples': packet.get('samples', [])})
     if packet.has_key('samples'):
       data = {"source": source, "samples": packet['samples'], 'source_addr': _to_hex(packet['source_addr'])}
       return events.fire('xbee.data', data)

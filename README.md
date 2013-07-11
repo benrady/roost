@@ -33,6 +33,16 @@ Roost is currently under development. Roost is expected to be released as a debi
 
 `sudo python setup.py install`
 
+## Setting up a new radio
+
+Each pin on an xbee radio can be associated with a service. Doing so adds an entry to the "sources" map on the service.
+
+0. Open the "services" page in roost
+0. Power up the radio. Bring pin 1 high? (or it is low?).
+0. This sends a message that the xbee service receives. It fires a xbee.new event with the radio's specs. It also adds the radio to the list of sources.
+0. In the web UI, the user is notified that a new device has been detected
+0. On the "services" page, the user can now assign that radio to a particular service
+
 ## Support
 
 Telnet access
@@ -42,3 +52,9 @@ Telnet access
 Roost is primarily test driven. You can run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
 
 You can run a development server like so: `twistd -n roost`
+
+### Creating custom services
+
+Some properties on a service are given special status, by convention. Here are some examples:
+
+* "sources" -- A list of xbee radio hex addresses, representing the devices the service should be listening to. If a service supports using a radio, it should default this value to an empty array. Services that cannot use radios should leave this property empty.
