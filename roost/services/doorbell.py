@@ -1,7 +1,7 @@
 from twisted.application import service
 import time
 import roost
-from roost import properties, storage
+from roost import properties
 
 class DoorbellService(service.Service):
   def __init__(self, opts={}):

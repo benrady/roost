@@ -1,7 +1,7 @@
 from twisted.application import service
 import time
 import roost
-from roost import properties, storage
+from roost import properties
 
 def _now_millis():
   return int(round(time.time() * 1000))
@@ -11,7 +11,6 @@ class EnvSensors(service.Service):
     self.setName('env_sensors')
     propfile = None
     if opts.has_key('data-dir'):
-      self.storage = storage.Storage(opts.get('data-dir'), self.name)
       propfile = opts.get('data-dir') + '/env_sensors/properties'
     self.properties = properties.Properties(propfile)
     self.properties['sources'] = {}
