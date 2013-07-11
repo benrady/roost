@@ -35,6 +35,7 @@ Roost is currently under development. Roost is expected to be released as a debi
 
 ## Setting up a new radio
 
+A service can optionally be associated with a xbee radio device.
 Each pin on an xbee radio can be associated with a service. Doing so adds an entry to the "sources" map on the service.
 
 0. Open the "services" page in roost
@@ -52,9 +53,3 @@ Telnet access
 Roost is primarily test driven. You can run the tests with [trial](https://twistedmatrix.com/trac/wiki/TwistedTrial).
 
 You can run a development server like so: `twistd -n roost`
-
-### Creating custom services
-
-Some properties on a service are given special status, by convention. Here are some examples:
-
-* "sources" -- A list of xbee radio hex addresses, representing the devices the service should be listening to. If a service supports using a radio, it should default this value to an empty array. Services that cannot use radios should leave this property empty.
